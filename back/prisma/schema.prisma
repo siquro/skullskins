@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  steamId        String     @id @unique
+  userName       String
+  avatarURL      String //хроним среденго размера
+  email          String?
+  tradeOfferLink String?
+  createdAt      DateTime // дата создания записи
+  Order          Order[]
+  Customer       Customer[]
+
+  @@map("users")
+}
+
+model SteamItem {
+  assetId        String @id @unique
+  classId        String
+  marketHashName String
+  imageURL       String
+  appId          Int
+  price          Float
+  tags           String
+  steamLink      String
+  quantity       Int
+  Order          Order? @relation(fields: [orderId], references: [id])
+  orderId        Int?
+
+  @@map("items")
+}
+
+model Order {
+  id          Int           @id @default(autoincrement())
+  user        User          @relation(fields: [userSteamId], references: [steamId])
+  totalPrice  Float
+  createdAt   DateTime
+  userSteamId String
+  items       SteamItem[]
+  Transaction Transaction[]
+  status String
+  // RESERVED
+  // RESERVATION_EXPIRED
+  // SUCCESS
+  // FAILED
+
+  @@map("orders")
+}
+
+model Transaction {
+  id      String @id @unique
+  status  String
+  // WAITING, SUCCESS, CANCELLED
+  amount  Float
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId Int
+
+  @@map("transactions")
+}
+
+model Customer {
+  id          String @id
+  user        User   @relation(fields: [userSteamId], references: [steamId])
+  fullName    String
+  adress1     String
+  adress2     String
+  country     String
+  city        String
+  userSteamId String
+
+  @@map("customers")
+}
+
+model Token {
+  id    Int    @id @default(autoincrement())
+  token String
+}

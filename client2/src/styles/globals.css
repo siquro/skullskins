@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  caret-color: transparent;
+}
+.formInput{
+  @apply w-[300px] rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1
+}
+.inputLabel{
+  @apply text-[15px]
+}
+.gradientBack {
+  background: linear-gradient(180deg, #009894 -0.24%, #015C71 77.89%);
+}
+
+.opacityGradientBack {
+  background: linear-gradient(180deg, rgba(0, 152, 148, .6) -0.24%, rgba(1, 92, 113, .6) 77.89%);
+}
+
+.header {
+  /* @apply  */
+  @apply text-white
+
+}
+
+.skullLogo {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo {
+  /* -webkit-transform: translate3d(0,0,0); */
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.autoPaddings {
+  @apply xl:px-[calc((100%-1280px)*0.5)] px-3
+}
+
+.headerText {
+  font-size: clamp(21px, 5vw, 60px);
+  line-height: 1;
+}
+
+
+.text {
+  @apply font-bold text-[21px]
+}
+
+.backgroundImage {
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-size: cover;
+  width: 100%;
+}
+
+.paralelogram {
+  width: 450px;
+  height: 623px;
+  background: linear-gradient(180deg, #009894 -0.24%, #015C71 77.89%);
+  transform: skewX(-20deg);
+}
+
+.man_gun {
+  transform: skewX(20deg);
+}
+
+.btnShadow {
+  box-shadow: 0px 5px 15px rgba(230, 230, 230, 0.25);
+}
+
+.spanExtra {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+/* about */
+
+.title {
+  font-size: clamp(6px, 2vw, 24px);
+  font-weight: bold;
+  text-align: justify;
+}
+
+.paragraph {
+  font-size: clamp(5px, 1vw, 16px);
+  text-align: justify;
+  white-space: pre-wrap;
+}
+
+.p2 {
+  font-size: clamp(6px, 1vw, 21px);
+  text-align: left;
+}
+
+.about_image {
+  @apply w-[222px] h-[147px] md:w-[333px] md:h-[220.5px] lg:w-[501px] lg:h-[346px] xl:w-[752px] xl:h-[520px]
+}
+
+.about_image_2 {
+  @apply w-[134px] h-[149px] md:w-[201px] md:h-[223.5px] lg:w-[301px] lg:h-[335px] xl:w-[507px] xl:h-[563px]
+}
+
+.about_image_3 {
+  @apply w-[134px] h-[170px] md:w-[201px] md:h-[250px] lg:w-[301px] lg:h-[360px] xl:w-[507px] xl:h-[590px]
+}
+
+.responsive_box {
+  width: clamp(268px, 80vw, 1014px);
+  height: clamp(166px, 50vw, 629px);
+}
+
+.rounded_box {
+  @apply rounded-[10px] xl:rounded-[30px]
+}
+
+/* Message */
+.input {
+  @apply w-[50%] mt-[1vw] px-[1vw] py-[1vh] p2 text-[black] focus:outline-none rounded-[5px] xl:rounded-[10px]
+}
+
+.sorting {
+  fill: white;
+}
+
+.t {
+  background: rgba(34, 34, 34, 0.8);
+}
+
+.subHeader {
+  font-size: clamp(12px, 2vw, 60px);
+}
+
+.btnText {
+  font-size: clamp(6px, 1vw, 21px);
+}

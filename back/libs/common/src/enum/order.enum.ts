@@ -1,0 +1,5 @@
+export enum OrderStatus {
+    RESERVED = 'RESERVED',
+    RESERVATION_EXPIRED = 'RESERVATION_EXPIRED',
+    SUCCESS = 'SUCCESS'
+}
