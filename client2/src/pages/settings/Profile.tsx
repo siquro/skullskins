@@ -5,12 +5,13 @@ import { selectUserData, setUserData, useAppDispatch } from "../../redux"
 import { IUser } from "../../interfaces"
 import Api from "../../utils/api"
 import { EditPencil, EmailSVG } from "../../utils/SVGAssets"
+import { toast } from "react-toastify"
 
 const Profile: React.FC<any> = () => {
 
 
     const user: IUser = useSelector(selectUserData)
-    const verified: boolean = user.email && user.tradeOfferLink ? true : false
+    const verified: boolean = user && user.email && user.tradeOfferLink && user.email ? true : false
     const dispatch = useAppDispatch()
 
     const [tradeURLEditable, setTradeURLEditable] = useState<boolean>(false)
@@ -27,10 +28,21 @@ const Profile: React.FC<any> = () => {
     const [tradeURLChanged, setTradeURLChanged] = useState<boolean>(false)
     const [tradeURLError, setTradeURLError] = useState<string>('')
 
+    const notify = (message: string) => {
+        toast(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            toastId: "solo"
+        });
+    }
 
-    useEffect(() => {
-        console.log(user)
-    }, [user])
+
     const VerifyButton = () => {
         return (
             <button onClick={() => {
@@ -42,6 +54,7 @@ const Profile: React.FC<any> = () => {
 
                 Api().user.verifyEmail(data)
                     .then((res) => {
+
                         setEmailSent(true)
                     })
                     .catch((e) => {
@@ -68,11 +81,12 @@ const Profile: React.FC<any> = () => {
                 Api().user.updateTradeOfferLink(data)
                     .then((res) => {
                         setTradeURLChanged(true)
-
+                        setTradeURLEditable(false)
                         dispatch(setUserData({
                             ...user,
                             tradeOfferLink: tradeURL
                         }))
+                        notify('Trade URL has been sucessfully changed!')
 
                     })
                     .catch((e) => {
@@ -115,8 +129,8 @@ const Profile: React.FC<any> = () => {
     return (
         <div className="w-full">
 
-            <h1 className="title mb-[1vw]">Account settings</h1>
-            <span className="p2">Status: <span className="font-bold">{verified ? 'verified' : 'unverified'}</span></span>
+            <h1 className="text-[24px] font-bold mb-[1vw]">Account settings</h1>
+            <span className="text-[16px]">Status: <span className="font-bold">{verified ? 'verified' : 'unverified'}</span></span>
 
 
             <div className="w-full sm:w-[650px] mt-5 caret-gray-400 border-b-gray-400 border-b-2 py-4">
@@ -174,7 +188,6 @@ const Profile: React.FC<any> = () => {
 
                 </div>
 
-                {tradeURLChanged && <div className="w-full justify-center"><p>DONE!</p></div>}
                 {tradeURLError && <div className="w-full justify-center bg-red-400"><p>ERROR OCCURED</p></div>}
 
 

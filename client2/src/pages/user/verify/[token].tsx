@@ -11,7 +11,6 @@ const TokenVerificiation = () => {
     const dispatch = useDispatch()
     const user = useSelector(selectUserData)
     useEffect(() => {
-        console.log(query)
         // @ts-ignore
         Api().user.updateEmail(query.token)
             .then((res: any) => {
@@ -19,13 +18,15 @@ const TokenVerificiation = () => {
                     ...user,
                     email: res.email
                 }))
-                window.close()
+                router.push('/')
             })
             .catch((e) => console.error(e))
     }, [query])
 
     return (
-        <></>
+        <div className="h-screen w-full p-4">
+            Email verified...
+        </div>
     )
 }
 export default TokenVerificiation

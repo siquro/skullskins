@@ -16,7 +16,7 @@ const Callback = () => {
 
     }, [history.query])
     return (
-        <h1>Hello</h1>
+        <div className="w-full h-screen">Loading...</div>
     )
 }
 export default Callback

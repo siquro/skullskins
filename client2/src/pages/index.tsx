@@ -8,7 +8,7 @@ import BestDeals from '../components/sections/BestDeals'
 
 export default function Home() {
   return (
-    <main className="w-full text-white">
+    <main className="w-full text-white overflow-hidden">
 
       <Hero />
       <Offers />

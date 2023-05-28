@@ -39,12 +39,14 @@ export class PaymentService {
       cvc: dto.cvc,
       remote_ip: dto.remote_ip
     }
-    return axios.post<any, any>(s2sURL, body, {
+    const data = await axios.post<any, any>(s2sURL, body, {
       headers: {
         Authorization: `Bearer ${PAYMENT_S2S_KEY}`,
         "Content-Type": 'application/json',
       }
     })
+    if (!data) throw new InternalServerErrorException("PAYMENT_S2S_FAILED")
+    return data
 
   }
 

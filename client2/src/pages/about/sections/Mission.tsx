@@ -13,7 +13,7 @@ const Mission = () => {
                 <Image src={imageURL} width={752} height={520} alt="player" className="about_image" />
                 
                 <div className="">
-                    <motion.h2 variants={textVariant(.25)} className="title">{title}</motion.h2>
+                    <motion.h2 variants={textVariant(.25)} className="title mb-4">{title}</motion.h2>
                     <motion.p variants={textVariant(.50)} className="paragraph">{par}</motion.p>
                 </div>
             </motion.div>

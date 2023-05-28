@@ -99,13 +99,12 @@ const ItemList = () => {
     }
 
     return (
-        <div className="w-full py-5 relative bg-[#1B3939] autoPaddings h-screen">
-
+        <div className="w-full py-5 relative bg-[#1B3939] autoPaddings min-h-screen h-fit">
             {/* <ActiveItem/> */}
-
-
-
-            <div className="relative">
+            {
+                activeListing.length > 0 ? 
+                
+                <div className="relative">
                 {watchingItem && <ActiveItem item={watchingItem} setActiveWatching={setWatchingItem} />}
                 <div className="flex gap-3 ml-auto w-fit px-2 py-1 bg-gray-600 rounded-md">
                     <Image onClick={() => handleFiltering(SortingENUM.DESC_PRICE)} src="./sorting/19.svg" width={32} height={32} alt="sort" className="gradientBack p-[3px] rounded-md cursor-pointer hover:opacity-50 transition-opacity ease-in-out duration-75" />
@@ -120,9 +119,9 @@ const ItemList = () => {
                     }
                 </div>
             </div>
-
-
-            {/* arrows */}
+            
+                : <h1 className="text text-white">Loading...</h1>
+        }
 
             <Navigation />
 

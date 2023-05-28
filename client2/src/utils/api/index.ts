@@ -16,7 +16,7 @@ const Api = (): ApiReturnType => {
     token = localStorage.getItem("accessToken") ?? ""
   }
   const instance = axios.create({
-    baseURL: 'http://localhost:3001',
+    baseURL: process.env.API_URL,
     headers: getHeaders(token),
     withCredentials: true
   })

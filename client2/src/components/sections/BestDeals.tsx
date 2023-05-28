@@ -1,7 +1,7 @@
 import { SectionWrapper } from "../../hoc"
 import Image from 'next/image'
+import { useRouter } from "next/router"
 // import './globals.css'
-import { IItem } from "../../interfaces"
 import React from "react"
 
 const items: Array<any> = [
@@ -10,7 +10,7 @@ const items: Array<any> = [
     { price: 34, imageURL: '/items/i3.png', name: 'AK-47' },
 ]
 const BestDeals = () => {
-
+    const router = useRouter()
     return (
         <div className="w-full py-5">
             <div className="rounded-[10px] xl:rounded-[30px] px-[3vw] w-full h-[30vw] justify-between min-h-[95px] max-h-[384px] gradientBack flex items-center relative">
@@ -39,7 +39,7 @@ const BestDeals = () => {
                     pr-[1vw]
                     ">
                         <button className="bg-[rgb(4,217,157)] h-full px-[1vw] p2 xl:rounded-[30px]
-                    rounded-[10px] font-bold absolute left-[-30px] translate-y-0 hover:text-[#01AFAB]">ADD TO CART</button>
+                    rounded-[10px] font-bold absolute left-[-30px] translate-y-0 hover:text-[#01AFAB]" onClick={() => router.push('/shop')}>ADD TO CART</button>
                         <p className="p2 ml-auto font-bold">{items[1].name}</p>
                         <div className="absolute bg-secondary px-[1vw] py-[2px] self-end skew-x-[-18deg] right-0 top-[-35px]">
                             <div className="skew-x-[18deg]">

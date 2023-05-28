@@ -12,11 +12,11 @@ export class OrderService {
     private readonly payment: PaymentService
   ) { }
 
-  
+
   async initiateTransaction(createOrderDto: CreateOrderDTO, paymentDto: InitiatePaymentDto, steamId: string) {
-    const  reservation =  await this.createOrder(createOrderDto,steamId)
+    const reservation = await this.createOrder(createOrderDto, steamId)
     if (!reservation) throw new Error('RESERVATION_FAILED')
-    
+
     const purchase = await this.payment.initiatePayment(paymentDto, steamId)
     if (!purchase) throw new Error('PURCHASE_CREATION_FAILED')
 
@@ -43,13 +43,12 @@ export class OrderService {
       remote_ip: paymentDto.remote_ip
     })
     if (!s2s.data) throw new Error('S2S_FAILED')
-    
     if (s2s.data.status === 'executed') {
       // платежка прошла без 3д проверки 
-    } else if(s2s.data.status === 'error' ) {
+    } else if (s2s.data.status === 'error') {
       // Error
     } else if (s2s.data.status === '3DS_required') {
-      console.log(s2s.data)
+      return s2s.data
     }
 
   }
@@ -73,7 +72,7 @@ export class OrderService {
         createdAt: new Date()
       }
     }).then(async (res) => {
-      
+
       const reservation = await this.prisma.steamItem.updateMany({
         where: {
           assetId: {

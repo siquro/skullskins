@@ -40,6 +40,9 @@ export class UsersService {
       }
     })
   }
+  async sendTestEmail(text: string){
+    return this.emailService.sendEmail(text)
+  }
 
   // async updateUserBullingInfo(dto:updateBillingInfoDTO,accessToken: string): Promise<any> {
   //   const { steamId } = this.aesService.decodingUserToken(accessToken)
@@ -80,7 +83,7 @@ export class UsersService {
     const TokenData = await this.createTokenRecord(token)
     if (!TokenData) { throw new Error('TOKEN_FAILED') }
 
-    return this.emailService.sendEmailVerificationURL(verificationURL)
+    return this.emailService.sendEmailVerificationURL(dto.email,verificationURL)
   }
 
   async updateEmail(token: string): Promise<any> {

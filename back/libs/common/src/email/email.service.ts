@@ -6,21 +6,21 @@ const hbs = require('nodemailer-express-handlebars')
 export class EmailService {
 
 
-    public async sendEmailVerificationURL(url: string) {
+    public async sendEmailVerificationURL(email:string,url: string) {
         const transporter = this.initTransport()
 
         try {
             const info = await transporter.sendMail({
-                from: 'krasnobo@gmail.com',
-                to: "rolikpolo34@gmail.com",
+                from: process.env.EMAIL_LOGIN,
+                to: email,
                 subject: "SIQURO", // Subject line
                 template: 'email', // the name of the template file i.e email.handlebars
                 context: {
                     url: url, // replace {{name}} with Adebola
-                    company: 'CARTHAGEN' // replace {{company}} with My Company
+                    company: 'SIQURO' // replace {{company}} with My Company
                 }
             });
-            console.log('Email send', info)
+            console.log('Email sent', info)
             return info
         } catch (e) {
             console.log(e)
@@ -28,37 +28,35 @@ export class EmailService {
     }
 
     public async sendEmail(verifyURL: string) {
-
-
         const transporter = this.initTransport()
 
         try {
             const info = await transporter.sendMail({
-                from: 'krasnobo@gmail.com',
-                to: "rolikpolo34@gmail.com",
+                from: process.env.EMAIL_LOGIN,
+                to: "krasnobo@gmail.com",
                 subject: "SIQURO", // Subject line
                 template: 'email', // the name of the template file i.e email.handlebars
                 context: {
                     name: verifyURL, // replace {{name}} with Adebola
-                    company: 'CARTHAGEN' // replace {{company}} with My Company
+                    company: 'SKULLSKINS' // replace {{company}} with My Company
                 }
             });
             console.log('Email send', info)
             return info
         } catch (e) {
-            console.log(e)
+            console.log("Error", e)
         }
 
     }
     private initTransport() {
 
         const transporter = nodemailer.createTransport({
-            service: "gmail",
-            host: 'smtp.gmail.com',
-            port: 587,
+            name: 'siquro.com',
+            host: 'mail.siquro.com',
+            port: 465,
             secure: true,
             auth: {
-                user: process.env.EMAIL_EMAIL,
+                user: process.env.EMAIL_LOGIN,
                 pass: process.env.EMAIL_PASSWORD
             }
         })
@@ -66,6 +64,7 @@ export class EmailService {
         return transporter
     }
 
+    // Email templates
     private generateHandlerOptions() {
         return {
             viewEngine: {

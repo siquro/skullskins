@@ -14,7 +14,7 @@ module.exports = {
       },
       backgroundImage: {
         'offersBg': "url('/offers_section/background.svg')",
-        'categoriesBg': "url('/categories_bg.svg')",
+        'categoriesBg': "url('/categories_bg.png')",
         'aboutBg': "url('/about/back.svg')",
         
       }

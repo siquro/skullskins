@@ -12,11 +12,9 @@ export class UserController {
 
   @Post('/email')
   updateEmail(@Body() dto: UpdateEmailDTO, @Req() req: any): any {
-
     const accessToken = req.headers.authorization
     return this.userService.sendVerificationEmail(dto, accessToken)
   }
-
   @Post('/email/verify')
   updateUser(@Body() { token }: { token: string }): any {
     return this.userService.updateEmail(token);

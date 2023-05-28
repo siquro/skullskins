@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { IItem } from "../../interfaces"
 import React from "react"
 import { fadeIn, textVariant } from "../../utils/motion"
+import { useRouter } from "next/router"
 
 const topItems: Array<any> = [
     { price: 34, imageURL: '/items/i1.png', name: 'AK-47' },
@@ -12,6 +13,7 @@ const topItems: Array<any> = [
     { price: 34, imageURL: '/items/i3.png', name: 'AK-47' },
 ]
 const Offers = () => {
+    const router = useRouter()
 
     const ItemCard: React.FC<any> = ({ price, imageURL, name }) => {
         return (
@@ -22,7 +24,8 @@ const Offers = () => {
                     className="w-[64px] h-[64px] xl:w-[128px] xl:h-[128px]"
                 />
                 <Image src='/cart.png' width={45} height={40} alt={name}
-                    className="self self-end clear-left w-[22.5px] h-[20px] md:w-[45px] md:h-[40px] cursor-pointer"
+                onClick={() => router.push('/shop')}
+                    className="self self-end clear-left w-[22.5px] h-[20px] md:w-[45px] md:h-[40px] cursor-pointer hover:scale-110 "
                 />
 
             </div>

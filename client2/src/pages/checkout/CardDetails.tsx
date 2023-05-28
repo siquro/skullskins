@@ -1,10 +1,17 @@
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Api from "../../utils/api";
 import { selectCartData, selectUserData, useAppSelector } from "../../redux";
 import { ICart, IItem } from "../../interfaces";
 import { NextResponse } from 'next/server'
 import axios from "axios";
+
+interface FormData {
+    MD: string,
+    PaReq: string,
+    TermUrl: string,
+    url: string
+}
 const CardDetails = () => {
     const { cart }: { cart: Array<any> } = useAppSelector(selectCartData)
 
@@ -20,6 +27,16 @@ const CardDetails = () => {
     const [cardHolderName, setCardHolderName] = useState<string>('')
     const [cardNumber, setCardNumber] = useState<string>('')
 
+    const [formVisible, setFormVisible] = useState<boolean>(true)
+
+    const [formData, setFormData] = useState<{
+        MD: string,
+        Method: "POST" | "GET",
+        PaReq: string,
+        URL: string,
+        callback_url: string
+    } | null>(null)
+
     useEffect(() => {
         Api().user.getBillingInfo()
             .then((res) => {
@@ -30,26 +47,24 @@ const CardDetails = () => {
                 setCountry(res.country)
             })
             .catch((error) => console.log(error))
-        handle3DSecure()
     }, [])
 
-    const handle3DSecure = () => {
-        const body = {
-            MD: 'n9DCTDKDOK-8N_afCc0kH5ba_2YkTifUV40AQaa3IFg',
-            PaReq: 'eyJ0aHJlZURTU2VydmVyVHJhbnNJRCI6IjNkNjcxNjI5LWE0MTAtNGE1ZC05Mjg4LWIzOGNlYWRkNDFmMiIsInRocmVlRFNNZXRob2ROb3RpZmljYXRpb25VUkwiOiJodHRwczovL21lcmNoYW50LmNvbS8zZHMtbWV0aG9kLWNvbXBsZXRlLyJ9',
-            TermUrl: 'http://localhost:3000'
-        }
-        axios.post('https://payments.siquro.com/processings/b152dec6-068a-4809-b4d9-7276a5d36e9e/3ds2/proxy-acs/?token=n9DCTDKDOK-8N_afCc0kH5ba_2YkTifUV40AQaa3IFg&connection=3n_7a75d596da0d654d83f6dc65926b4bca&key=pk_live_eefe092012916ef8f0b74479ebba18de',
-            body, {
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-            }
-        }).then((res) => {
-            if (res.data.url) window.location.href = res.data.url
-        }).catch((err) => console.log(err))
+    const RedirectForm: React.FC<FormData> = ({ url, TermUrl, MD, PaReq }) => {
+        const ref = useRef(null)
+        // @ts-ignore
+        useEffect(() => { ref.current.submit() }, [])
+        return <form action={url} method="POST" ref={ref}>
+            <input type="hidden" name="MD" value={MD} />
+            <input type="hidden" name="PaReq" value={PaReq} />
+            <input type="hidden" name="TermUrl" value={TermUrl} />
+        </form>
+
+
     }
 
+
     const handleCardHolderNameChangeEvenet = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log('!de2d2d')
         const pattern: RegExp = /^[A-Za-z\s'.-]+$/
         if (e.target.value.length === 0) setCardHolderName('')
         if (pattern.test(e.target.value)) setCardHolderName(e.target.value)
@@ -106,7 +121,16 @@ const CardDetails = () => {
                 assetId: el.assetId,
                 price: el.price
             }))
-        }).then((res) => console.log(res))
+        }).then((res) => {
+            console.log(res)
+            setFormData({
+                MD: res.MD,
+                Method: res.Method,
+                PaReq: res.PaReq,
+                URL: res.URL,
+                callback_url: res.callback_url
+            })
+        })
             .catch((error) => console.log(error))
     }
 
@@ -250,7 +274,10 @@ const CardDetails = () => {
 
 
             </form>
+            {formData &&
 
+                <RedirectForm MD={formData.MD} PaReq={formData.PaReq} TermUrl={"http://localhost:3000"} url={formData.URL} />
+            }
         </div>
     )
 }
