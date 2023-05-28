@@ -56,7 +56,7 @@ export class EmailService {
             port: 465,
             secure: true,
             auth: {
-                user: process.env.EMAIL_LOGIN,
+                user: process.env.EMAIL_EMAIL,
                 pass: process.env.EMAIL_PASSWORD
             }
         })
