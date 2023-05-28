@@ -11,7 +11,7 @@ export class EmailService {
 
         try {
             const info = await transporter.sendMail({
-                from: process.env.EMAIL_LOGIN,
+                from: process.env.EMAIL_EMAIL,
                 to: email,
                 subject: "SIQURO", // Subject line
                 template: 'email', // the name of the template file i.e email.handlebars
