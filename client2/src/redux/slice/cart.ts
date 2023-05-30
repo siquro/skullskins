@@ -31,6 +31,9 @@ export const cartSlice = createSlice({
                 return obj.price + sum
             }, 0)
         },
+        emptyCart: (state, action: PayloadAction<null>) => {
+            state.cart = []
+        }
 
     },
 
@@ -45,6 +48,6 @@ export const cartSlice = createSlice({
     },
 })
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, emptyCart } = cartSlice.actions;
 export const selectCartData = (state: RootState) => state.cart;
 export const cartReducer = cartSlice.reducer;

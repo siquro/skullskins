@@ -1,10 +1,12 @@
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import Api from "../../utils/api";
-import { selectCartData, selectUserData, useAppSelector } from "../../redux";
+import { selectCartData, selectUserData, useAppSelector, emptyCart } from "../../redux";
 import { ICart, IItem } from "../../interfaces";
 import { NextResponse } from 'next/server'
 import axios from "axios";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
 interface FormData {
     MD: string,
@@ -28,7 +30,7 @@ const CardDetails = () => {
     const [cardNumber, setCardNumber] = useState<string>('')
     const [zipCode, setZipCode] = useState<string>('')
     const [formVisible, setFormVisible] = useState<boolean>(true)
-
+    const dispatch = useDispatch()
     const [formData, setFormData] = useState<{
         MD: string,
         Method: "POST" | "GET",
@@ -36,7 +38,7 @@ const CardDetails = () => {
         URL: string,
         callback_url: string
     } | null>(null)
-
+    const router = useRouter()
     useEffect(() => {
         Api().user.getBillingInfo()
             .then((res) => {
@@ -117,6 +119,8 @@ const CardDetails = () => {
             expires: `${expMonth < 10 ? '0'.concat(expMonth.toString()) : expMonth}/${expYear}`,
         }).then((res) => {
             console.log(res)
+            dispatch(emptyCart(null))
+            router.push('/user/trades')
             // setFormData({
             //     MD: res.MD,
             //     Method: res.Method,
