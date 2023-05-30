@@ -38,6 +38,9 @@ export class OrderService implements OnModuleInit {
       where: {
         userSteamId: steamId,
         status: OrderStatus.RESERVED
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
     })
     if (!userOrder) throw new InternalServerErrorException("ORDER_NOT FOUND")
@@ -46,7 +49,7 @@ export class OrderService implements OnModuleInit {
 
     const transaction = await this.prisma.transaction.create({
       data: {
-        id: new Date().toString(),
+        id: new Date().getTime().toString(),
         status: TransactionStatus.SUCCESS,
         order: {
           connect: {
@@ -93,6 +96,7 @@ export class OrderService implements OnModuleInit {
     })
 
     if (!paidOrder) throw new InternalServerErrorException("PAID_ORDER_NOT_FOUND")
+
     const tradeOffer = await this.prisma.tradeBotOffer.create({
       data: {
         order: {
