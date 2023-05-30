@@ -2,7 +2,7 @@ import { SectionWrapper } from "../../../hoc"
 
 const Contact = () => {
     return (
-        <div className="mt-[5vw] w-full bg-[#222222CC] min-h-[179px] h-[40vw] max-h-[805px] flex flex-col items-center p-[1vw_3vw_3vw_3vw] rounded_box relative">
+        <div id="contact" className="mt-[5vw] w-full bg-[#222222CC] min-h-[179px] h-[40vw] max-h-[805px] flex flex-col items-center p-[1vw_3vw_3vw_3vw] rounded_box relative">
             <p className="title text-center">GET IN TOUCH</p>
 
             <div className="flex w-full h-full">

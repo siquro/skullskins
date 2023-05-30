@@ -40,29 +40,25 @@ model SteamItem {
 }
 
 model Order {
-  id          Int           @id @default(autoincrement())
-  user        User          @relation(fields: [userSteamId], references: [steamId])
-  totalPrice  Float
-  createdAt   DateTime
-  userSteamId String
-  items       SteamItem[]
-  Transaction Transaction[]
-  status String
-  // RESERVED
-  // RESERVATION_EXPIRED
-  // SUCCESS
-  // FAILED
+  id            Int            @id @default(autoincrement())
+  user          User           @relation(fields: [userSteamId], references: [steamId])
+  totalPrice    Float
+  createdAt     DateTime
+  userSteamId   String
+  items         SteamItem[]
+  status        String
+  transaction   Transaction?   @relation(fields: [transactionId], references: [id])
+  transactionId String?        @unique
+  TradeBotOffer TradeBotOffer?
 
   @@map("orders")
 }
 
 model Transaction {
-  id      String @id @unique
-  status  String
-  // WAITING, SUCCESS, CANCELLED
-  amount  Float
-  order   Order  @relation(fields: [orderId], references: [id])
-  orderId Int
+  id     String @id @unique
+  status String // WAITING, SUCCESS, CANCELLED
+  amount Float
+  order  Order?
 
   @@map("transactions")
 }
@@ -83,4 +79,16 @@ model Customer {
 model Token {
   id    Int    @id @default(autoincrement())
   token String
+}
+
+model TradeBotOffer {
+  id         Int     @id @default(autoincrement())
+  botSteamId String
+  status     String
+  offerId    String?
+
+  orderId Int   @unique
+  order   Order @relation(fields: [orderId], references: [id])
+
+  @@map("trade_bot_offers")
 }

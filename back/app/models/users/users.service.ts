@@ -1,5 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Customer } from '@prisma/client';
+import { HttpCode, Injectable, NotFoundException } from '@nestjs/common';
+import { Customer, TradeBotOffer } from '@prisma/client';
 import { AESService, Client, EmailService, IUser, PrismaService, UpdateEmailDTO } from '@st/common';
 
 export type User = {
@@ -40,7 +40,7 @@ export class UsersService {
       }
     })
   }
-  async sendTestEmail(text: string){
+  async sendTestEmail(text: string) {
     return this.emailService.sendEmail(text)
   }
 
@@ -49,14 +49,37 @@ export class UsersService {
   //   // const {id} = this.prisma.user.findFirst({where: {steamId: steamId}, select : {}})
   //   return this.prisma.customer.update({
   //     where: {
-        
+
   //     },
   //     data: {
   //       ...dto
   //     }
   //   })
   // }
-  
+  async getUserTrades(accessToken: string): Promise<any> {
+    const { steamId } = this.aesService.decodingUserToken(accessToken)
+    const trades = await this.prisma.tradeBotOffer.findMany({
+      where: {
+        order: {
+          userSteamId: steamId
+        }
+      },
+      select: {
+        status: true,
+        order: {
+          select: {
+            id: true,
+            totalPrice: true,
+            createdAt: true,
+            items: true
+          }
+        }
+      }
+    })
+    console.log(trades)
+    if (!trades) throw new Error("USER_TRADES_ERROR")
+    else return trades
+  }
   async getUserInfo(steamId: string): Promise<IUser | undefined> {
     const user = await this.prisma.user.findFirst({
       where: {
@@ -83,7 +106,7 @@ export class UsersService {
     const TokenData = await this.createTokenRecord(token)
     if (!TokenData) { throw new Error('TOKEN_FAILED') }
 
-    return this.emailService.sendEmailVerificationURL(dto.email,verificationURL)
+    return this.emailService.sendEmailVerificationURL(dto.email, verificationURL)
   }
 
   async updateEmail(token: string): Promise<any> {

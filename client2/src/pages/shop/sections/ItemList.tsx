@@ -70,7 +70,7 @@ const ItemList = () => {
                 onClick={() => setWatchingItem(item)}
                 className="w-full hover:opacity-60 transition-opacity duration-300 cursor-pointer aspect-square p-4 bg-primary rounded-[20px] flex flex-col justify-between items-center">
                 <h3 className="text-[16px] font-bold text-[#FFD911] self-start">$ {item.price}</h3>
-                <Image src={imageFullURL} priority width={128} height={128} alt={item.marketHashName} />
+                <Image src={imageFullURL} priority width={128} height={128} alt={item.marketHashName}/>
                 <p className="text-[17px]">{item.marketHashName.length > 15 ? item.marketHashName.slice(0, 15).concat('...') : item.marketHashName}</p>
             </div>
         )

@@ -2,11 +2,11 @@
 const links = [
     { title: 'Privay Policy', link: '/privacy' },
     { title: 'Terms & Conditions', link: '/terms' },
-    { title: 'Buy', link: '/privacy' },
-    { title: 'Help', link: '/privacy' },
-    { title: 'About', link: '/privacy' },
-    { title: 'Contact', link: '/privacy' },
-    { title: '2023 @ skullskins', link: '' },
+    { title: 'Buy', link: '/shop' },
+    { title: 'Help', link: '/help' },
+    { title: 'About', link: '/about' },
+    { title: 'Contact', link: '/about#contact' },
+    { title: '2023 @ skullskins', link: '/' },
 ]
 
 const Footer = () => {

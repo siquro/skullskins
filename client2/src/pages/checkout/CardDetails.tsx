@@ -26,7 +26,7 @@ const CardDetails = () => {
     const [cardCVV, setCardCVV] = useState<string>('')
     const [cardHolderName, setCardHolderName] = useState<string>('')
     const [cardNumber, setCardNumber] = useState<string>('')
-
+    const [zipCode, setZipCode] = useState<string>('')
     const [formVisible, setFormVisible] = useState<boolean>(true)
 
     const [formData, setFormData] = useState<{
@@ -116,20 +116,15 @@ const CardDetails = () => {
             cardholder_name: cardHolderName,
             cvc: cardCVV,
             expires: `${expMonth < 10 ? '0'.concat(expMonth.toString()) : expMonth}/${expYear}`,
-        }, {
-            items: cart.map((el) => ({
-                assetId: el.assetId,
-                price: el.price
-            }))
         }).then((res) => {
             console.log(res)
-            setFormData({
-                MD: res.MD,
-                Method: res.Method,
-                PaReq: res.PaReq,
-                URL: res.URL,
-                callback_url: res.callback_url
-            })
+            // setFormData({
+            //     MD: res.MD,
+            //     Method: res.Method,
+            //     PaReq: res.PaReq,
+            //     URL: res.URL,
+            //     callback_url: res.callback_url
+            // })
         })
             .catch((error) => console.log(error))
     }
@@ -155,33 +150,33 @@ const CardDetails = () => {
                     <div className="">
                         <p className="inputLabel">FULL NAME</p>
                         {/* @ts-ignore */}
-                        <input value={fullName} required type="text" maxLength={128} className="formInput" />
+                        <input value={fullName} onChange={(e) => setFullName(e.target.value)} required type="text" maxLength={128} className="formInput" />
                     </div>
                     <div className="">
                         <p className="inputLabel">ADRESS 1</p>
                         {/* @ts-ignore */}
-                        <input value={adress1} required maxLength={128} type="text" className="formInput" />
+                        <input value={adress1} onChange={(e) => setAdress1(e.target.value)} required maxLength={128} type="text" className="formInput" />
                     </div>
                     <div className="">
                         <p className="inputLabel">ADRESS 2</p>
                         {/* @ts-ignore */}
-                        <input value={adress2} required maxLength={128} type="text" className="formInput" />
+                        <input value={adress2} onChange={(e) => setAdress2(e.target.value)} required maxLength={128} type="text" className="formInput" />
                     </div>
                     <div className="">
                         <p className="inputLabel">CITY</p>
                         {/* @ts-ignore */}
-                        <input value={city} required type="text" maxLength={128} className="formInput" />
+                        <input value={city} onChange={(e) => setCity(e.target.value)} required type="text" maxLength={128} className="formInput" />
                     </div>
 
                     <div className="w-[300px] flex justify-between">
                         <div className="w-[150px]">
                             <p className="inputLabel">COUNTRY</p>
                             {/* @ts-ignore */}
-                            <input required value={country} type="text" maxLength={128} className="w-full rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1" />
+                            <input required value={country} onChange={(e) => setCountry(e.target.value)} type="text" maxLength={128} className="w-full rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1" />
                         </div>
                         <div className="w-[100px]">
                             <p className="inputLabel">ZIP CODE</p>
-                            <input required type="text" maxLength={32} className="w-full rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1" />
+                            <input required type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} maxLength={32} className="w-full rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1" />
                         </div>
 
                     </div>

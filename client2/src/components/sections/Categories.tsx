@@ -24,7 +24,7 @@ const Categories = () => {
 
     const Card: React.FC<ICard> = ({ title, imageURL, index }) => {
         return <motion.div variants={fadeIn('', 'linear', .50 * index, 2.25)} className="flex items-end justify-center w-full">
-            <Image src={imageURL} width={193} height={193} alt={title} />
+            <Image src={imageURL} width={193} height={193} alt={title} priority />
             <span className="absolute text-[12px] sm:text-[30px] font-bold">{title}</span>
         </motion.div>
     }

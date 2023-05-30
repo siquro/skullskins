@@ -15,12 +15,17 @@ export class OrderController {
   @Post('/')
   createOrder(@Body() dto: CreateOrderDTO, @Req() req: IRequest): any {
     const user = this.aesService.decodingUserToken(req.headers.authorization)
-    // return this.orderService.createOrder(dto, user.steamId)
+    return this.orderService.createOrder(dto, user.steamId)
   }
   @Post('/transaction')
-  initiateTransaction(@Body() createOrderDto: CreateOrderDTO,@Body() paymentDto: InitiatePaymentDto, @Req() req: IRequest): Promise<any>{
-      const user = this.aesService.decodingUserToken(req.headers.authorization)
-      const remote_ip = req.socket.remoteAddress
-      return this.orderService.initiateTransaction(createOrderDto,{...paymentDto, remote_ip}, user.steamId)
+  initiateTransaction(@Body() paymentDto: InitiatePaymentDto, @Req() req: IRequest): Promise<any> {
+    const user = this.aesService.decodingUserToken(req.headers.authorization)
+    const remote_ip = req.socket.remoteAddress
+    return this.orderService.initiateTransaction({ ...paymentDto, remote_ip }, user.steamId)
+  }
+  @Post('/sendTradeOffer')
+  sendTradeOffer(@Body() { orderId }: { orderId: number }, @Req() req: IRequest): Promise<any> {
+    const user = this.aesService.decodingUserToken(req.headers.authorization)
+    return this.orderService.sendTradeOrder(orderId, user.steamId)
   }
 }

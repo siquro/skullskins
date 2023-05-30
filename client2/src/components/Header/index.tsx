@@ -3,7 +3,7 @@ import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { selectCartData, selectUserData, setUserData, useAppDispatch, useAppSelector } from "../../redux"
 import SteamButton from "./SteamButton"
-import { ArrowSVG, LogoutSVG, SettingsSVG, ShoppingCart } from "./SVGAssets"
+import { ArrowSVG, LogoutSVG, SendSVG, SettingsSVG, ShoppingCart } from "./SVGAssets"
 import User from "./User"
 import { toast } from "react-toastify"
 import { IUser } from "../../interfaces"
@@ -50,7 +50,7 @@ const Header: React.FC<any> = ({ }) => {
             {burgerActive && <div className="w-fit h-[200px] bg-black absolute top-[60px] flex flex-col gap-4 p-5 rounded-xl z-[100]">
                 <a href="/login" onClick={() => { setBurgerActive(false) }} className="flex gap-5 items-center">
                     <span>Sign in Steam</span>
-                    <Image src="/steam_icon.svg" width={32} height={32} alt="steam_logo" />
+                    <Image src="/steam_icon.svg" width={32} height={32} alt="steam_logo" priority />
                 </a>
                 <Link href="/about" onClick={() => { setBurgerActive(false) }}><span>About us</span></Link>
                 <Link href="/shop" onClick={() => { setBurgerActive(false) }}><span>Game Skins</span></Link>
@@ -69,17 +69,23 @@ const Header: React.FC<any> = ({ }) => {
                 </Link>
             </nav>
             <Link href="/">
-                <Image src="/skull_logo.svg" width={64} height={64} alt="skull_logo" className="skullLogo" />
+                <Image src="/skull_logo.svg" width={64} height={64} alt="skull_logo" className="skullLogo" priority />
             </Link>
 
             <div className="flex items-center">
+                <Link href={"/user/trades"}>
+                    <SendSVG className={'w-2[24px] h-[24px] fill-white cursor-pointer hover:scale-110 hover:fill-gray-200'} />
+                </Link>
+
                 <div className="relative mr-[1vw]" onClick={handleShopCartClick}>
                     <div className="absolute top-[-50%] right-[0] w-[20px] h-[20px]
                  text-gray-500 bg-white text-center rounded-full">
                         <span>{cart.length}</span>
                     </div>
+
                     <ShoppingCart className="w-2[24px] h-[24px] fill-white cursor-pointer hover:scale-110 hover:fill-gray-200" />
                 </div>
+
                 {user ? <User /> : <SteamButton />}
             </div>
 

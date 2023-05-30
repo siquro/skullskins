@@ -17,13 +17,12 @@ export const ordersAPI = (instance: AxiosInstance) => ({
     }
   },
 
-  async initiatePayment(paymentDto: InitiatePaymentDto, orderDto: CreateOrderDTO) {
+  async initiatePayment(paymentDto: InitiatePaymentDto) {
     try {
-      const { data, error } = await instance.post<any, any>(
+      const { data } = await instance.post<any, any>(
         '/order/transaction',
         {
           ...paymentDto,
-          ...orderDto
         }
       );
       return data;

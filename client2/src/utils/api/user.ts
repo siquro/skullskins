@@ -11,7 +11,22 @@ export const userAPI = (instance: AxiosInstance) => ({
         .then((res) => resolve(res.data));
     });
   },
-
+  async getTrades() {
+    const { data } = await instance.get<null, { data: any }>(
+      '/user/trades',
+    );
+    return data;
+  },
+  async sendTrade(orderId: number) {
+    return new Promise<any>((resolve, reject) => {
+      instance
+        .post<any, AxiosResponse<any>>('/order/sendTradeOffer', {
+          orderId
+        })
+        .then((res) => resolve(res.data))
+        .catch((e) => reject(e.code));
+    });
+  },
   async getMe() {
     const { data } = await instance.get<null, { data: any }>(
       '/user',

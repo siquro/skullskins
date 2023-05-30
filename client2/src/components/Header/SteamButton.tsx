@@ -41,7 +41,7 @@ const SteamButton = () => {
                 }
             } className="hidden items-center gap-[16px] sm:flex">
                 <span>Sign in Steam</span>
-                <Image src="/steam_icon.svg" width={32} height={32} alt="steam_logo" />
+                <Image src="/steam_icon.svg" width={32} height={32} alt="steam_logo" priority />
             </a>
         </div>
     )

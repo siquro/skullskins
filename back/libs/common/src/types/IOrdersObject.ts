@@ -9,3 +9,8 @@ export interface IOrdersObject {
   steamLink: string
   quantity: number
 }
+export interface IOrderObject2{
+  name: string,
+  price: number,
+  icon_url: string
+}

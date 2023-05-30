@@ -30,8 +30,13 @@ export class UserController {
     return this.userService.getUserInfo(req.steamId);
   }
   @Get('/billing')
-  getBillingInfo( @Req() req: any): any {
+  getBillingInfo(@Req() req: any): any {
     const accessToken = req.headers.authorization
     return this.userService.getUserBillingInfo(accessToken)
+  }
+  @Get('/trades')
+  getUserTrades(@Req() req: IRequest) {
+    const accessToken = req.headers.authorization
+    return this.userService.getUserTrades(accessToken)
   }
 }

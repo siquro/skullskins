@@ -67,7 +67,7 @@ const ShoppingCart: React.FC<any> = () => {
                 <td className="w-[25px]"><Image onClick={() => dispatch(removeFromCart(item.assetId))} src="/delete.png" width={48} height={48} alt={item.marketHashName}
                     className="w-[20px] cursor-pointer"
                 /></td>
-                <td><Image src={imageFullURL} width={128} height={128} alt={item.marketHashName}
+                <td><Image src={imageFullURL} width={128} height={128} alt={item.marketHashName} priority
                     className="w-[80%] h-[80%]"
                 /></td>
                 <td className="text-right">{item.marketHashName}</td>
@@ -118,11 +118,11 @@ const ShoppingCart: React.FC<any> = () => {
                         </div>
                         <div className="flex justify-between border-b-1 md:border-b-2 border-[#222222B2]">
                             <span className="p2">Vat</span>
-                            <span>+ 21%</span>
+                            <span>+ 0%</span>
                         </div>
                         <div className="flex justify-between border-b-1 md:border-b-2 border-[#222222B2]">
                             <span className="p2">Total</span>
-                            <span>$ {(totalPrice * 1.21).toFixed(2)}</span>
+                            <span>$ {(totalPrice).toFixed(2)}</span>
                         </div>
                         {cart.length === 0 ? <></> :
 

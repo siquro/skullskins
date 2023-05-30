@@ -10,7 +10,7 @@ const Mission = () => {
     const Card: React.FC<any> = ({ title, par, imageURL, reverse }) => {
         return (
             <motion.div className={`w-full justify-between flex ${reverse ? 'flex-row-reverse':''} mb-[1rem] lg:mb-[5rem]`}>
-                <Image src={imageURL} width={752} height={520} alt="player" className="about_image" />
+                <Image src={imageURL} width={752} height={520} alt="player" className="about_image" priority />
                 
                 <div className="">
                     <motion.h2 variants={textVariant(.25)} className="title mb-4">{title}</motion.h2>

@@ -23,8 +23,9 @@ export class PaymentService {
   async initiatePayment(dto: InitiatePaymentDto, steamId: string) {
     const { cardholder_name, cvc, card_number, expires, ...rest } = dto
     const data = await this.getRedirectURL(rest, steamId)
-    if (!data) throw new Error('FAILED_TO_CREATE_PURCHASE')
-    return data
+    console.log(data)
+    // if (!data) throw new Error('FAILED_TO_CREATE_PURCHASE')
+    // return data
   }
 
   async handleS2SPayment(dto: S2SPaymentDTO): Promise<any> {

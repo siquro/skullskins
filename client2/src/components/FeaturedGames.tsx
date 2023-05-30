@@ -22,7 +22,7 @@ const FeaturedGames = () => {
     const Card: React.FC<game> = ({ title, avatarURL, active, index }) => {
         return (
             <motion.div className="" variants={fadeIn('left', 'spring', 0.5 * index, .75)}>
-                <Image src={avatarURL} width={90} height={160} alt={title}
+                <Image src={avatarURL} width={90} height={160} alt={title} priority
                     className={`${active ? 'opacity-100' : 'opacity-20'} sm:w-[255px] sm:h-[400px]`
                     }
                 />
