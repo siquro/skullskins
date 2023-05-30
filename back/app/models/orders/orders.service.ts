@@ -46,7 +46,7 @@ export class OrderService implements OnModuleInit {
 
     const transaction = await this.prisma.transaction.create({
       data: {
-        id: 'ordertransactionid',
+        id: new Date().toString(),
         status: TransactionStatus.SUCCESS,
         order: {
           connect: {

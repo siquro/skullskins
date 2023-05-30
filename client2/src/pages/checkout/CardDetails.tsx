@@ -104,7 +104,6 @@ const CardDetails = () => {
 
     const handlePayClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        console.log('PAY')
         Api().orders.initiatePayment({
             full_name: fullName,
             street_address: adress1,
