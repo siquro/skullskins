@@ -21,7 +21,7 @@ const User = () => {
 
             <span className="font-bold mr-3">{user.userName}</span>
             <Image src={user.avatarURL} width={64} height={64} alt="steam_icon" className="rounded-md w-[42px] h-[42px]" />
-            <div onClick={() => setMenuActive(true)}>
+            <div onClick={() => setMenuActive((prev) => !prev)}>
                 <ArrowSVG className={"fill-red-50 hover:fill-gray-400 cursor-pointer hover:translate-y-1"} />
             </div>
 
