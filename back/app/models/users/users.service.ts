@@ -76,7 +76,7 @@ export class UsersService {
         }
       }
     })
-    console.log(trades)
+
     if (!trades) throw new Error("USER_TRADES_ERROR")
     else return trades
   }

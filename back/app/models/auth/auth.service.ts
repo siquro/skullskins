@@ -44,10 +44,9 @@ export class AuthService {
     return accessToken
   }
 
-
-
   private async verifyObject(dto: LoginDto) {
     const validOpEndpoint = 'https://steamcommunity.com/openid/login';
+
     const identifierRegex =
       /^https?:\/\/steamcommunity\.com\/openid\/id\/(\d+)$/;
 
@@ -61,13 +60,14 @@ export class AuthService {
     const url = await this.buildCheckUrl(dto);
     try {
       const { data: checkData } = await axios.get(url);
+
       const isValid = checkData.split('is_valid:')[1].split('\n')[0];
       if (isValid && isValid !== 'false')
         throw new BadRequestException(HttpErrorsEnum.STEAM_OPENID_VERIFY_ERROR);
 
       const profileUrl = await this.buildProfileUrl(steamID);
-
       const { data } = await axios.get<ISteamUser>(profileUrl);
+
       if (!data.response)
         throw new InternalServerErrorException(
           HttpErrorsEnum.STEAM_DIDNT_GET_PROFILE,

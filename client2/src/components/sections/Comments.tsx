@@ -20,11 +20,11 @@ const comments = [
 
 const Comments = () => {
 
-    const Card = ({text, stars, idx}: {text: string, stars: number, idx:number}) => {
+    const Card = ({text, stars}: {text: string, stars: number}) => {
         return <div className={`w-[100%] h-[350px] rounded-[35px] flex flex-col items-center  p-7 bg-red-50`}>
             <div  className="flex">
                 {
-                   new Array(stars).fill(1).map(() => <Image src="./star.svg" width={27} height={27} alt="star"/>)
+                   new Array(stars).fill(1).map((star, key) => <Image src="./star.svg" key={key} width={27} height={27} alt="star"/>)
                 }
             </div>
 
@@ -34,7 +34,7 @@ const Comments = () => {
     }
 
     return <div className='w-full grid grid-cols-2 sm:grid-cols-3 justify-center gap-[2vw] py-[5rem]'>
-                {comments.map((el, idx) => <Card text={el.text} stars={el.stars} idx={idx}/>)}
+                {comments.map((el, idx) => <Card text={el.text} stars={el.stars} key={idx}/>)}
             
             <span className="text absolute bottom-0 spanExtra">Best deals</span>
         </div>

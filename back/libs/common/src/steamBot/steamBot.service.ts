@@ -6,14 +6,16 @@ import {
 } from '@nestjs/common';
 import CEconItem from 'steamcommunity/classes/CEconItem';
 import CConfirmation from 'steamcommunity/classes/CConfirmation';
-import axios from "axios";
-import * as SteamUser from "steam-user";
-import * as TradeOfferManager from "steam-tradeoffer-manager";
-import * as SteamCommunity from "steamcommunity";
+import axios from 'axios';
+import * as SteamUser from 'steam-user';
+import * as TradeOfferManager from 'steam-tradeoffer-manager';
+import * as SteamCommunity from 'steamcommunity';
 import { IOrderObject2, IOrdersObject, ISteamInventory, ISteamMarket } from '../types';
 import { off } from 'process';
 import { PrismaService } from '@st/common';
+
 const { getConfirmationKey, time } = require('steam-totp');
+
 interface IBotCollection {
   // @ts-ignore
   readonly user: SteamUser;
@@ -24,6 +26,7 @@ interface IBotCollection {
   readonly sharedSecret: string;
   readonly identitySecret: string;
 }
+
 interface SteamLogin {
   readonly id: string;
   readonly guardToken: string;
@@ -57,12 +60,15 @@ enum ConfirmationType {
 @Injectable()
 export class SteamBotService {
   constructor(
-    private readonly prismaService: PrismaService
-  ) { }
+    private readonly prismaService: PrismaService,
+  ) {
+  }
+
   private readonly botsCollection: Map<string, IBotCollection> = new Map<
     string,
     IBotCollection
   >();
+
   // eslint-disable-next-line @typescript-eslint/no-empty-function
 
 
@@ -70,32 +76,31 @@ export class SteamBotService {
     let isError = false;
     const community = new SteamCommunity();
     let user: any;
-    let manager = new TradeOfferManager({ steam: new SteamUser() })
+    let manager = new TradeOfferManager({ steam: new SteamUser() });
+
     community.oAuthLogin(dto.guardToken, dto.oAuthToken, (err, sessionID, cookies) => {
-      console.log(sessionID, cookies)
+      console.log(sessionID, cookies);
       if (err) isError = true;
-      community.setCookies(cookies as any)
+      community.setCookies(cookies as any);
       community.getClientLogonToken((err, details) => {
         user = new SteamUser({ enablePicsCache: true });
         // Ensure that we have logged in properly and that our app information has loaded in
         user.logOn(details);
-        user.on("loggedOn", () => {
-          console.log("[STEAM_TRADE_BOT] Bot has been sucessfully started!")
+        user.on('loggedOn', () => {
+          console.log('[STEAM_TRADE_BOT] Bot has been sucessfully started!', user, manager);
           manager.setCookies(cookies as any);
-          user.on("appOwnershipCached", () => { });
+          user.on('appOwnershipCached', () => {
+          });
         });
-      })
-    })
-    manager.on('sentOfferChanged', async function (offer, oldState) {
+      });
+    });
 
-
+    manager.on('sentOfferChanged', async function(offer, oldState) {
       Logger.log(
         `[STEAM SERVICE] SteamID ${dto.id} Offer #${offer.id} changed: ${TradeOfferManager.ETradeOfferState[oldState]
         } -> ${TradeOfferManager.ETradeOfferState[offer.state]}`,
       );
-
     });
-
 
     if (isError) {
       user.logOff();
@@ -126,7 +131,7 @@ export class SteamBotService {
           (err, inventory) => {
             if (err) {
               throw new InternalServerErrorException(
-                "USER_INVENTORY_ERROR",
+                'USER_INVENTORY_ERROR',
               );
             }
             if (inventory.length === 0) {
@@ -167,10 +172,12 @@ export class SteamBotService {
           }
           if (inventory.length === 0) {
             throw new InternalServerErrorException(
-              'STEAM_BOT_INVENTORY_EMPTY'
+              'STEAM_BOT_INVENTORY_EMPTY',
             );
           }
           const offer = bot.manager.createOffer(dto.tradeUrl);
+          console.log('created offer', offer);
+
           const items: Array<CEconItem> = [];
           dto.itemsName.map((name) => {
             items.push(inventory.find((el) => el.name === name));
@@ -178,24 +185,27 @@ export class SteamBotService {
           offer.addMyItems(items);
 
           offer.send((err, status) => {
+            console.log('---')
+            console.log('what', offer);
+            console.log('!---')
+            console.log(err.toString())
+
             if (err) {
               //TRADE BAN or new connection(less 7 day)
               throw new InternalServerErrorException(
-                'STEAM_BOT_INTERNAL_ERROR'
+                'STEAM_BOT_INTERNAL_ERROR',
               );
             }
             if (status === 'pending') {
               //Confirmation logic
               offerId = offer.id;
-
-
-              const time = Math.floor(Date.now() / 1000)
-              const confKey = getConfirmationKey(bot.identitySecret, time, 'conf')
-              const allowKey = getConfirmationKey(bot.identitySecret, time, 'allow')
+              const time = Math.floor(Date.now() / 1000);
+              const confKey = getConfirmationKey(bot.identitySecret, time, 'conf');
+              const allowKey = getConfirmationKey(bot.identitySecret, time, 'allow');
 
               bot.community.acceptAllConfirmations(time, confKey, allowKey, (err) => {
-              })
-              resolve(offerId)
+              });
+              resolve(offerId);
 
             } else {
               console.log('[STEAM SERVICE] bot succesfyle send trade');
@@ -204,8 +214,7 @@ export class SteamBotService {
         });
       }
 
-    })
-
+    });
   }
 
   /**
@@ -235,7 +244,7 @@ export class SteamBotService {
     if (err) {
       console.log(err);
       throw new InternalServerErrorException(
-        "STEAM_BOT_CONFIRM_ERROR"
+        'STEAM_BOT_CONFIRM_ERROR',
       );
     }
   }
@@ -266,12 +275,12 @@ export class SteamBotService {
             price: price + result,
             icon_url: inv.icon_url,
             name: inv.name,
-          })
+          });
         })
         .catch(() => {
           //console.error('ERROR RATE LIMIT MAYBE idk');
         });
-    })
+    });
     return temp;
   }
 }

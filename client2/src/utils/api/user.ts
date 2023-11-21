@@ -5,6 +5,7 @@ import { rejects } from 'assert';
 export const userAPI = (instance: AxiosInstance) => ({
 
   async login(dto: any) {
+    console.log('login,', dto)
     return new Promise<string>((resolve) => {
       instance
         .post<any, AxiosResponse<any>>('/auth/login', dto)
@@ -27,9 +28,10 @@ export const userAPI = (instance: AxiosInstance) => ({
         .catch((e) => reject(e.code));
     });
   },
-  async getMe() {
+  async getMe(accessToken: string) {
     const { data } = await instance.get<null, { data: any }>(
       '/user',
+      { params: { accessToken: accessToken } }
     );
     return data;
   },

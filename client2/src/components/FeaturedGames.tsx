@@ -32,7 +32,7 @@ const FeaturedGames = () => {
     }
     return (
         <div className="w-ful flex justify-between mt-[2rem]">
-            {games.map((el, idx) => <Card key={el.title} title={el.title} avatarURL={el.avatarURL} active={el.active} index = {idx}/>)}
+            {games.map((el, idx) => <Card key={idx} title={el.title} avatarURL={el.avatarURL} active={el.active} index = {idx}/>)}
         </div>
     )
 }

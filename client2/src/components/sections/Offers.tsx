@@ -113,7 +113,7 @@ const Offers = () => {
         "
         >
             <p className="absolute top-[-40px] text underline text-[#04D99D] ml-10 left-0">TOP ITEMS</p>
-            {topItems.map((el) => <ItemCard price={el.price} imageURL={el.imageURL} name={el.name} />)}
+            {topItems.map((el, index) => <ItemCard key={index} price={el.price} imageURL={el.imageURL} name={el.name} />)}
         </div>
 
     </div>

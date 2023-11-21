@@ -10,6 +10,8 @@ const Callback = () => {
         const query = history.query
         Api().user.login(query)
             .then((res) => {
+              console.log('callback', res)
+                console.log(res)
                 localStorage.setItem('accessToken', res)
             })
             .catch((e) => console.error(e))

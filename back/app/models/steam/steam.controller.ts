@@ -16,7 +16,7 @@ export class SteamController {
 
   @Post('items/update')
   update(){
-    return this.steamService.addItemsToShop('76561199503137510', 252490)
+    return this.steamService.addItemsToShop('76561198077709562', 252490)
   }
   // Обновления товаров в юд!!!
   // return this.steamService.addItemsToShop('76561199503137510', 252490)

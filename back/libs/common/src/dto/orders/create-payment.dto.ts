@@ -27,6 +27,8 @@ export interface CreateRedirectUrlDto{
     card_number: string,
     expires: string,
     cvc: string,
+    phone: string,
+    phone_code: string
 }
 export interface S2SPaymentDTO{
     direct_post_url: string

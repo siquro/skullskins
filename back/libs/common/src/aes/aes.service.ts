@@ -25,7 +25,7 @@ export class AESService {
       const result = CryptoAes.decrypt(decrypted, AES_SECRET).toString(
         CryptoEncUtf8,
       );
-      return JSON.parse(result) as AESUserPayload;
+      return JSON.parse(result);
     } catch (e) {
       throw new ForbiddenException(HttpErrorsEnum.USER_TOKEN_ERROR);
     }

@@ -53,4 +53,6 @@ export interface InitiatePaymentDto extends CreateRedirectUrlDto {
     card_number: string,
     expires: string,
     cvc: string,
+    phone: string,
+    phone_code: string
 }
