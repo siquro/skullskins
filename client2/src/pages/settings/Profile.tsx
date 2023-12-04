@@ -196,4 +196,4 @@ const Profile: React.FC<any> = () => {
         </div>
     )
 }
-export default SectionWrapper(Profile, '', "")
+export default SectionWrapper(Profile, '', "", "", "")

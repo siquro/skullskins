@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import Header from '../../../components/Header';
 import { useEffect, useState } from 'react';
 import Api from '../../../utils/api';
+import SectionTitles from '@/components/SectionTitles';
 
 enum TradeStatus {
   WAITING = 'WAITING',
@@ -51,7 +52,7 @@ const Trades: NextPage = () => {
 
   const TableRow: React.FC<TableRow> = ({ date, items, total, status, orderId }) => {
     return (
-      <tr className='bg-white border-b dark:bg-gray-900 dark:border-gray-700'>
+      <tr className='bg-accent border-b dark:bg-gray-900 dark:border-gray-700'>
         <th scope='row' className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
           {date}
         </th>
@@ -65,48 +66,47 @@ const Trades: NextPage = () => {
           {status}
         </td>
         <td className='px-6 py-4'>
-{
-          <div onClick={() => handleSendOffer(orderId)}>yes</div>
-}
+          {
+            <div onClick={() => handleSendOffer(orderId)}>yes</div>
+          }
           {!offerSent && status === TradeStatus.WAITING && <button onClick={() => handleSendOffer(orderId)}
-                                                                   className='bg-gray-300 px-2 py-1 hover:bg-opacity-75 rounded-md'>Send</button>}
+            className='bg-gray-300 px-2 py-1 hover:bg-opacity-75 rounded-md'>Send</button>}
           {offerSent && status === TradeStatus.WAITING && <p>sent...</p>}
         </td>
       </tr>
     );
   };
   return (
-    <div className='relative h-screen w-full gradientBack autoPaddings pb-4'>
+    <div className='relative h-screen w-full bg-primary autoPaddings pb-4'>
       <Header />
       <div className='relative w-full h-[calc(100%-106px)]'>
-        <h1 className='text text-white mb-4'>Trade offers</h1>
-
+        <SectionTitles firstWord='Trade' lastWord='offers'/>
         <div className='relative max-h-[calc(100%-106px)] overflow-x-auto rounded-lg'>
           <table className='w-full text-md text-left'>
             <thead className='text-xs bg-white uppercase sticky top-0'>
-            <tr className=''>
-              <th scope='col' className='px-6 py-3 sticky'>
-                Date
-              </th>
-              <th scope='col' className='px-6 py-3 sticky'>
-                Items
-              </th>
-              <th scope='col' className='px-6 py-3 sticky'>
-                Total
-              </th>
-              <th scope='col' className='px-6 py-3 sticky'>
-                Status
-              </th>
-              <th scope='col' className='px-6 py-3 sticky'>
-                Action
-              </th>
-            </tr>
+              <tr className=''>
+                <th scope='col' className='px-6 py-3 sticky'>
+                  Date
+                </th>
+                <th scope='col' className='px-6 py-3 sticky'>
+                  Items
+                </th>
+                <th scope='col' className='px-6 py-3 sticky'>
+                  Total
+                </th>
+                <th scope='col' className='px-6 py-3 sticky'>
+                  Status
+                </th>
+                <th scope='col' className='px-6 py-3 sticky'>
+                  Action
+                </th>
+              </tr>
             </thead>
             <tbody>
-            {records.map((el, index) => (
-              <TableRow key={index} date={el.date} items={el.items} total={el.total} status={el.status}
-                        orderId={el.orderId} />
-            ))}
+              {records.map((el, index) => (
+                <TableRow key={index} date={el.date} items={el.items} total={el.total} status={el.status}
+                  orderId={el.orderId} />
+              ))}
             </tbody>
           </table>
         </div>

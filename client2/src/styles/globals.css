@@ -5,40 +5,34 @@
 body {
   caret-color: transparent;
 }
-.formInput{
-  @apply w-[300px] rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1
-}
-.inputLabel{
-  @apply text-[15px]
-}
-.gradientBack {
-  background: linear-gradient(180deg, #009894 -0.24%, #015C71 77.89%);
+
+.formInput {
+  @apply w-[300px] rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1;
 }
 
-.opacityGradientBack {
-  background: linear-gradient(180deg, rgba(0, 152, 148, .6) -0.24%, rgba(1, 92, 113, .6) 77.89%);
+.inputLabel {
+  @apply text-[15px] font-barlow text-[ligthText];
 }
 
 .header {
-  /* @apply  */
-  @apply text-white
-
+  @apply text-white;
 }
 
-.skullLogo {
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.logo {
-  /* -webkit-transform: translate3d(0,0,0); */
-  image-rendering: -webkit-optimize-contrast;
+.section_title {
+  font-size: 56px;
+  line-height: 56px;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 .autoPaddings {
-  @apply xl:px-[calc((100%-1280px)*0.5)] px-3
+  @apply xl:px-[calc((100%-1280px)*0.5)] px-3;
+}
+
+.sectionAutoPadding {
+  @apply xl:px-[calc((100%-1280px)*0.5)] px-3;
+  @apply py-[50px];
+  @apply md:py-[150px];
 }
 
 .headerText {
@@ -46,9 +40,8 @@ body {
   line-height: 1;
 }
 
-
 .text {
-  @apply font-bold text-[21px]
+  @apply font-bold text-[21px];
 }
 
 .backgroundImage {
@@ -56,58 +49,56 @@ body {
   background-size: auto;
   background-size: cover;
   width: 100%;
+  background-position: center;
 }
 
-.paralelogram {
-  width: 450px;
-  height: 623px;
-  background: linear-gradient(180deg, #009894 -0.24%, #015C71 77.89%);
-  transform: skewX(-20deg);
+.backgroundWaveRight {
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-size: contain;
+  background-position: top right;
+  width: 100%;
 }
 
-.man_gun {
-  transform: skewX(20deg);
-}
-
-.btnShadow {
-  box-shadow: 0px 5px 15px rgba(230, 230, 230, 0.25);
-}
-
-.spanExtra {
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-
-/* about */
-
-.title {
-  font-size: clamp(6px, 2vw, 24px);
-  font-weight: bold;
-  text-align: justify;
-}
-
-.paragraph {
-  font-size: clamp(5px, 1vw, 16px);
-  text-align: justify;
-  white-space: pre-wrap;
+.backgroundWaveLeft {
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-size: contain;
+  /* background-position: top left; */
+  background-position: left bottom;
 }
 
 .p2 {
-  font-size: clamp(6px, 1vw, 21px);
+  font-size: clamp(16px, 18px, 21px);
   text-align: left;
+  font-family: var(--font-barlow);
+  color: #f1f1f1;
 }
 
-.about_image {
-  @apply w-[222px] h-[147px] md:w-[333px] md:h-[220.5px] lg:w-[501px] lg:h-[346px] xl:w-[752px] xl:h-[520px]
+.terms_privacy-content p,
+.terms_privacy-content li {
+  @apply text-[16px] text-[#F1F1F1] font-barlow pt-[10px];
+}
+
+.terms_privacy-content h2 {
+  @apply text-[28px] sm:text-[32px] lg:text-[36px] font-grotesk text-[#02FE4F] font-bold mt-[20px];
+}
+
+.terms_privacy-content h3,
+.terms_privacy-content h4 {
+  @apply text-[22px] sm:text-[26px] lg:text-[30px] font-grotesk text-[#F1F1F1] mt-[10px];
+}
+
+.terms_privacy-content h4 {
+  @apply text-[18px] sm:text-[20px] lg:text-[24px] font-grotesk text-[#F1F1F1];
 }
 
 .about_image_2 {
-  @apply w-[134px] h-[149px] md:w-[201px] md:h-[223.5px] lg:w-[301px] lg:h-[335px] xl:w-[507px] xl:h-[563px]
+  @apply w-[134px] h-[149px] md:w-[201px] md:h-[223.5px] lg:w-[301px] lg:h-[335px] xl:w-[507px] xl:h-[563px];
 }
 
 .about_image_3 {
-  @apply w-[134px] h-[170px] md:w-[201px] md:h-[250px] lg:w-[301px] lg:h-[360px] xl:w-[507px] xl:h-[590px]
+  @apply w-[134px] h-[149px] md:w-[201px] md:h-[223.5px] lg:w-[301px] lg:h-[335px] xl:w-[507px] xl:h-[563px];
 }
 
 .responsive_box {
@@ -116,12 +107,11 @@ body {
 }
 
 .rounded_box {
-  @apply rounded-[10px] xl:rounded-[30px]
+  @apply rounded-[10px] xl:rounded-[30px];
 }
 
-/* Message */
 .input {
-  @apply w-[50%] mt-[1vw] px-[1vw] py-[1vh] p2 text-[black] focus:outline-none rounded-[5px] xl:rounded-[10px]
+  @apply w-[90%] mt-[1vw] px-[1vw] py-[1vh] p2 text-[lightText] focus:outline-none border-[#004615] border-solid border-[2px] bg-transparent;
 }
 
 .sorting {
@@ -136,6 +126,57 @@ body {
   font-size: clamp(12px, 2vw, 60px);
 }
 
-.btnText {
-  font-size: clamp(6px, 1vw, 21px);
+/* offers */
+
+.hover-image .offer-item {
+  transition: transform 0.3s ease-in-out;
+}
+
+.hover-image:hover .offer-item {
+  transform: scale(1.3);
+}
+
+/* slick-carousel customasitaion */
+
+@media only screen and (max-width: 1024px) {
+  .slick-prev {
+    left: -5px !important;
+  }
+
+  .slick-next {
+    right: -5px !important;
+  }
+}
+
+/* best deals */
+
+.fixed_frame {
+  box-shadow: 0px 20px 0px -10px #0e0e0e, 0px -20px 0px -10px #0e0e0e, 20px 0px 0px -10px #0e0e0e,
+    -20px 0px 0px -10px #0e0e0e, 0px 0px 0px 10px rgb(4, 217, 157), 5px 5px 15px 5px rgba(4, 217, 157, 0);
+}
+
+.gradient_border-top {
+  background: #0e0e0e;
+  background: linear-gradient(to bottom, #0e0e0e 15%, #0e0e0e00 100%);
+  top: 0;
+  right: 0;
+  height: 150px;
+}
+
+.gradient_border-bottom {
+  background: #0e0e0e00;
+  background: linear-gradient(to bottom, #0e0e0e00 0%, #0e0e0e 100%);
+  bottom: 0;
+  right: 0;
+  height: 150px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .gradient_border-top {
+    height: 70px;
+  }
+
+  .gradient_border-bottom {
+    height: 70px;
+  }
 }

@@ -50,26 +50,30 @@ const Header: React.FC<any> = ({ }) => {
             {burgerActive && <div className="w-fit h-[200px] bg-black absolute top-[60px] flex flex-col gap-4 p-5 rounded-xl z-[100]">
                 <a href="/login" onClick={() => { setBurgerActive(false) }} className="flex gap-5 items-center">
                     <span>Sign in Steam</span>
-                    <Image src="/steam_icon.svg" width={32} height={32} alt="steam_logo" priority />
+                    <Image src="/skull_logoDemo.svg" width={32} height={32} alt="steam_logo w-[32px] h-[auto]" priority />
                 </a>
+                <Link href="/" onClick={() => { setBurgerActive(false) }}><span>Home</span></Link>
                 <Link href="/about" onClick={() => { setBurgerActive(false) }}><span>About us</span></Link>
-                <Link href="/shop" onClick={() => { setBurgerActive(false) }}><span>Game Skins</span></Link>
+                <Link href="/shop" onClick={() => { setBurgerActive(false) }}><span>Shop</span></Link>
             </div>}
 
-            <Image className="block sm:hidden cursor-pointer" src="/burger_menu.svg" width={25} height={16} alt="menu" onClick={() => {
+            <Image className="block md:hidden cursor-pointer" src="/burger_menu.svg" width={25} height={16} alt="menu" onClick={() => {
                 setBurgerActive(true)
             }} />
 
-            <nav className="hidden sm:block">
-                <Link href="/shop">
-                    <span className="mr-[64px] hover:text-gray-300">Game Skins</span>
+            <nav className="hidden md:block">
+                <Link href="/">
+                    <span className="mr-[64px] hover:text-gray-300">Home</span>
                 </Link>
                 <Link href="/about">
-                    <span className=" hover:text-gray-300">About Us</span>
+                    <span className=" mr-[64px] hover:text-gray-300">About Us</span>
+                </Link>
+                <Link href="/shop">
+                    <span className="mr-[64px] hover:text-gray-300">Shop</span>
                 </Link>
             </nav>
             <Link href="/">
-                <Image src="/skull_logo.svg" width={64} height={64} alt="skull_logo" className="skullLogo" priority />
+                <Image src="/skull_skins-text.svg" width={64} height={64} alt="skull_logo" className="skullLogo w-[64px] h-auto" priority />
             </Link>
 
             <div className="flex items-center">

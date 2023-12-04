@@ -10,4 +10,4 @@ const Help = () => {
         </div>
     )
 }
-export default SectionWrapper(Help, '', "gradientBack")
+export default SectionWrapper(Help, '', "gradientBack", "", "")

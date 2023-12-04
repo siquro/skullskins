@@ -1,26 +1,23 @@
 'use client'
-import Image from "next/image"
-import Header from "../../components/Header"
 import Mission from "./sections/Mission"
-import Contact from "./sections/Contact"
-import Message from "./sections/Message"
-import Footer from "../../components/Footer"
-import Catalog from "./sections/Catalog"
+import GlobalHeroSection from "@/components/sections/GlobalHeroSection"
+import GetInTouch from "@/components/sections/GetInTouch"
+import OurCatalog from "@/components/sections/OurCatalog"
 
 const About = () => {
     return (
-        <main className="w-full text-white relative gradientBack">
-            <Header />
-            <Image src="./about/pattern.svg" width={1440} height={2140} alt="pattern" className="absolute w-full z-1" priority />
-            <div className="w-full">
-                <div className="w-full h-[72px] sm:h-[134px] lg:h-[286px] bg-aboutBg backgroundImage autoPaddings flex items-center mb-5">
-                    <p className="headerText">About us</p>
-                </div>
+        <main className="w-full bg-primary">
+            <GlobalHeroSection
+                title_start={"About"}
+                title_end={"Us"}
+                styles={"bg-bgWaveRight backgroundImage autoPaddings"}
+                border_top={false}
+                border_bottom={true} />
 
+            <div className="w-full">
                 <Mission />
-                <Catalog />
-                <Contact />
-                <Message />
+                <OurCatalog/>
+                <GetInTouch />
             </div>
         </main>
     )

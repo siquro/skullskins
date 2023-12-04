@@ -148,4 +148,4 @@ const ShoppingCart: React.FC<any> = () => {
         </div>
     )
 }
-export default SectionWrapper(ShoppingCart, '', "gradientBack")
+export default SectionWrapper(ShoppingCart, '', "gradientBack", "", "")

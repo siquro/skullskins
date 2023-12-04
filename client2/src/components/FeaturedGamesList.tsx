@@ -10,7 +10,7 @@ interface game {
     index: number
 }
 
-const FeaturedGames = () => {
+const FeaturedGamesList = () => {
 
     const games = [
         { title: 'CS:GO', avatarURL: './games/csgo.svg', active: false },
@@ -36,4 +36,4 @@ const FeaturedGames = () => {
         </div>
     )
 }
-export default FeaturedGames
+export default FeaturedGamesList;
