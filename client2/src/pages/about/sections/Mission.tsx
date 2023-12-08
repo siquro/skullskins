@@ -29,7 +29,7 @@ const Mission = () => {
                 <div>
                     {idx % 2 === 0 ? (<motion.div variants={fadeIn('right', 'linear', .2, 1)}>
                         <Card title={el.title} par={el.par} imageURL={el.imageURL} key={idx + el.par.length} reverse={el.reverse} />
-                    </motion.div>) : (<motion.div variants={fadeIn('left', 'linear', .8, 1)}>
+                    </motion.div>) : (<motion.div variants={fadeIn('left', 'linear', .8, 1)} className="mt-[0px] md:mt-[80px]">
                         <Card title={el.title} par={el.par} imageURL={el.imageURL} key={idx + el.par.length} reverse={el.reverse} />
                     </motion.div>)}
                 </div>

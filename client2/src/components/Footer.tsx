@@ -12,7 +12,7 @@ const Footer = () => {
 
     return (
         <div className="flex flex-col bg-secondary items-center py-[28px] md:py-[30px] xl:py-[64px] px-[1vw]">
-            <Image src="./skull_logoDemo.svg" width={70} height={70} alt="skull_logo" className="logo w-[70px] h-[auto] lg:h-[auto]" priority />
+            <Image src="/skull_logoDemo.svg" width={70} height={70} alt="skull_logo" className="logo w-[70px] h-[auto] lg:h-[auto]" priority />
 
             <div className='flex justify-between items-center autoPaddings w-full pb-[40px] max-sm:flex-col'>
                 {

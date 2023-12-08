@@ -1,8 +1,7 @@
 import { NextPage } from 'next';
-import Header from '../../../components/Header';
 import { useEffect, useState } from 'react';
 import Api from '../../../utils/api';
-import SectionTitles from '@/components/SectionTitles';
+import GlobalHeroSection from '@/components/sections/GlobalHeroSection';
 
 enum TradeStatus {
   WAITING = 'WAITING',
@@ -34,7 +33,80 @@ const Trades: NextPage = () => {
 
   useEffect(() => {
     Api().user.getTrades()
-      .then((res: Array<any>) => {
+      // .then((res: Array<any>) => {
+        const res = [{
+          status: TradeStatus.WAITING,
+          order: {
+            id: 1,
+            createdAt: "2022-12-12",
+            items: ["Skull", "Death Mask"],
+            totalPrice: 0,
+          }
+        },
+        {
+          status: TradeStatus.SENT,
+          order: {
+            id: 2,
+            createdAt: "2022-12-12",
+            items: ["Skull", "Death Mask"],
+            totalPrice: 2,
+          }
+        },
+        {
+          status: TradeStatus.RECEIVED,
+          order: {
+            id: 3,
+            createdAt: "2022-12-12",
+            items: ["Skull", "Death Mask"],
+            totalPrice: 99,
+          }
+        },
+        {
+          status: TradeStatus.REJECTED,
+          order: {
+            id: 4,
+            createdAt: "2022-12-12",
+            items: ["Skull", "Death Mask"],
+            totalPrice: 54,
+          }
+        },
+        {
+          status: TradeStatus.WAITING,
+          order: {
+            id: 1,
+            createdAt: "2022-12-12",
+            items: ["Skull", "Death Mask"],
+            totalPrice: 0,
+          }
+        },
+        {
+          status: TradeStatus.SENT,
+          order: {
+            id: 2,
+            createdAt: "2022-12-12",
+            items: ["Skull", "Death Mask"],
+            totalPrice: 2,
+          }
+        },
+        {
+          status: TradeStatus.RECEIVED,
+          order: {
+            id: 3,
+            createdAt: "2022-12-12",
+            items: ["Skull", "Death Mask"],
+            totalPrice: 99,
+          }
+        },
+        {
+          status: TradeStatus.REJECTED,
+          order: {
+            id: 4,
+            createdAt: "2022-12-12",
+            items: ["Skull", "Death Mask"],
+            totalPrice: 54,
+          }
+        }
+        ]
         setRecords(
           res.map((el) => ({
             date: el.order.createdAt,
@@ -44,46 +116,56 @@ const Trades: NextPage = () => {
             orderId: el.order.id,
           })),
         );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      // }
+      // )
+      // .catch((err) => {
+      //   console.log(err);
+      // });
   }, []);
 
   const TableRow: React.FC<TableRow> = ({ date, items, total, status, orderId }) => {
     return (
-      <tr className='bg-accent border-b dark:bg-gray-900 dark:border-gray-700'>
-        <th scope='row' className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'>
+      <tr className='bg-primary text-lightText border-y border-[#004615] dark:bg-gray-900 '>
+        <th scope='row' className='px-6 py-4 font-medium text-accent whitespace-nowrap dark:text-white text-barlow'>
           {date}
         </th>
-        <td className='px-6 py-4'>
+        <td className='px-6 py-4 '>
+          skull
           {items}
         </td>
         <td className='px-6 py-4'>
           $ {total}
         </td>
+
         <td className='px-6 py-4'>
-          {status}
+          {status === TradeStatus.REJECTED ? <span className='text-[red]'>{status}</span> : <span>{status}</span>
+          }
         </td>
+
         <td className='px-6 py-4'>
           {
-            <div onClick={() => handleSendOffer(orderId)}>yes</div>
+            <span onClick={() => handleSendOffer(orderId)}>yes</span>
           }
           {!offerSent && status === TradeStatus.WAITING && <button onClick={() => handleSendOffer(orderId)}
-            className='bg-gray-300 px-2 py-1 hover:bg-opacity-75 rounded-md'>Send</button>}
-          {offerSent && status === TradeStatus.WAITING && <p>sent...</p>}
+            className=' px-2 py-1 ml-[20px] font-barlow font-bold text-lightText rounded-[10px] bg-btnBg hover:bg-btnBgHover'>Send</button>}
+          {offerSent && status === TradeStatus.WAITING && <span className='ml-[20px] '>sent...</span>}
         </td>
       </tr>
     );
   };
   return (
-    <div className='relative h-screen w-full bg-primary autoPaddings pb-4'>
-      <Header />
-      <div className='relative w-full h-[calc(100%-106px)]'>
-        <SectionTitles firstWord='Trade' lastWord='offers'/>
-        <div className='relative max-h-[calc(100%-106px)] overflow-x-auto rounded-lg'>
+    <main className="bg-primary relative w-full">
+      <GlobalHeroSection
+        title_start={"Trade"}
+        title_end={"offers"}
+        styles={"bg-bgWaveRight backgroundImage autoPaddings"}
+        border_top={false}
+        border_bottom={true} />
+
+      <div className=' autoPaddings  relative w-full h-[calc(100%-106px)]'>
+        <div className='relative max-h-[calc(100%-106px)] overflow-x-auto rounded-lg h-screen'>
           <table className='w-full text-md text-left'>
-            <thead className='text-xs bg-white uppercase sticky top-0'>
+            <thead className='text-xm text-lightText uppercase sticky top-0 bg-secondary font-grotesk'>
               <tr className=''>
                 <th scope='col' className='px-6 py-3 sticky'>
                   Date
@@ -110,10 +192,8 @@ const Trades: NextPage = () => {
             </tbody>
           </table>
         </div>
-
-
       </div>
-    </div>
+    </main>
   );
 };
 export default Trades;
