@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useRouter } from "next/router"
 import React, { useState } from "react"
 import Slider from "react-slick"
+import { useAppDispatch, addToCart } from '@/redux';
 
 const items: Array<any> = [
     { price: 150, imageURL: '/items/i1.png', name: 'AK-47' },
@@ -15,6 +16,7 @@ const BestDeals = () => {
     const [currentItem, setCurrentItem] = useState(0);
     const router = useRouter()
     const [currentItemInfo, setCurrentItemInfo] = useState(items[currentItem]);
+    const dispatch = useAppDispatch()
 
     const settings = {
         dots: false,
@@ -73,7 +75,7 @@ const BestDeals = () => {
                 </div>
                 <button className="absolute bottom-[-100px] right-[0px] left-[0px] mx-auto my-0 
                 font-barlow font-bold px-[45px] py-[15px] mt-[40px] text-lightText rounded-[10px] bg-btnBg hover:bg-btnBgHover"
-                    onClick={() => router.push('/shop')}>ADD TO CART</button>
+                    onClick={() => dispatch(addToCart(currentItemInfo))}  >ADD TO CART</button>
             </div>
         </div>
     );

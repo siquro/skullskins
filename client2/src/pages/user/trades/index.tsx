@@ -162,8 +162,8 @@ const Trades: NextPage = () => {
         border_top={false}
         border_bottom={true} />
 
-      <div className=' autoPaddings  relative w-full h-[calc(100%-106px)]'>
-        <div className='relative max-h-[calc(100%-106px)] overflow-x-auto rounded-lg h-screen'>
+      <div className=' autoPaddings  relative w-full'>
+        <div className='relative  overflow-x-auto rounded-lg h-screen'>
           <table className='w-full text-md text-left'>
             <thead className='text-xm text-lightText uppercase sticky top-0 bg-secondary font-grotesk'>
               <tr className=''>

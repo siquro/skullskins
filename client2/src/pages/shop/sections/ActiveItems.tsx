@@ -1,17 +1,16 @@
-import Image from "next/image"
-import { IItem } from "../../../interfaces"
-import { addToCart, removeFromCart, selectCartData, useAppDispatch, useAppSelector } from "../../../redux"
-import { useSelector } from "react-redux"
-import { CloseBTNSVG } from "../../../utils/SVGAssets"
+import Image from "next/image";
+import { IItem } from "../../../interfaces";
+import { addToCart, removeFromCart, selectCartData, useAppDispatch, useAppSelector } from "../../../redux";
+import { useSelector } from "react-redux";
+import { CloseBTNSVG } from "../../../utils/SVGAssets";
+
 interface IProps {
     item: IItem
     setActiveWatching: React.Dispatch<React.SetStateAction<IItem | null>>;
 }
 const ActiveItem: React.FC<IProps> = ({ item, setActiveWatching }) => {
-
     const { cart } = useAppSelector(selectCartData)
     const dispatch = useAppDispatch()
-
 
     const itemExistsInCard = cart.some((el: IItem) => el.assetId === item.assetId)
 
@@ -30,6 +29,7 @@ const ActiveItem: React.FC<IProps> = ({ item, setActiveWatching }) => {
             font-barlow font-bold custom_btn text-lightText rounded-[10px]">Remove From Cart</button>
         )
     }
+
     //DONT DELETE THIS IMAGE LINK FROM STEAMSTATIC AFTER REDISGN DELETE SECOND ONE
     // const imageFullURL = `https://community.akamai.steamstatic.com/economy/image/${item.imageURL}`
     const imageFullURL = `${item.imageURL}`
