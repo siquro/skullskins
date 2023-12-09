@@ -6,6 +6,8 @@ import { IUser } from "../../interfaces"
 import Api from "../../utils/api"
 import { EditPencil, EmailSVG } from "../../utils/SVGAssets"
 import { toast } from "react-toastify"
+import { motion } from "framer-motion"
+import { fadeIn } from "@/utils/motion"
 
 const Profile: React.FC<any> = () => {
 
@@ -19,6 +21,12 @@ const Profile: React.FC<any> = () => {
 
     const [userEmail, setUserEmail] = useState<string>(user.email ? user.email : 'unverified')
     const [emailEditable, setEmailEditable] = useState<boolean>(false)
+
+    //for redesign comment 19-23 line and use this lines 
+    // const [tradeURLEditable, setTradeURLEditable] = useState<boolean>(true);
+    // const [tradeURL, setTradeURL] = useState<string>("");
+    // const [userEmail, setUserEmail] = useState<string>("");
+    // const [emailEditable, setEmailEditable] = useState<boolean>(true);
 
     const [spin, setSpin] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
@@ -42,7 +50,6 @@ const Profile: React.FC<any> = () => {
         });
     }
 
-
     const VerifyButton = () => {
         return (
             <button onClick={() => {
@@ -64,12 +71,12 @@ const Profile: React.FC<any> = () => {
                         setSpin(false)
                     })
             }}
-                className="ml-auto bg-gray-400 px-2
-                 rounded-sm  cursor-pointer
-                 hover:bg-gray-600 shadow-xd animate-pulse">Verify</button>
+                className="px-[15px] cursor-pointer h-[30px] shadow-xd font-barlow font-bold text-lightText
+                rounded-[10px] bg-btnBg hover:bg-btnBgHover">Verify</button>
         )
 
     }
+
     const VerifyTradeUrlButton = () => {
         return (
             <button onClick={() => {
@@ -93,9 +100,8 @@ const Profile: React.FC<any> = () => {
                         setTradeURLError(e.code)
                     })
             }}
-                className="ml-auto bg-gray-400 px-2
-                 rounded-sm  cursor-pointer h-[30px]
-                 hover:bg-gray-600 shadow-xd animate-pulse">Verify</button>
+                className="px-[15px] cursor-pointer h-[30px] shadow-xd font-barlow font-bold text-lightText
+                rounded-[10px] bg-btnBg hover:bg-btnBgHover">Verify</button>
         )
 
     }
@@ -107,13 +113,13 @@ const Profile: React.FC<any> = () => {
         </div>
     )
     const SentEmailNotification = () => (
-        <div className="w-full px-3 py-1 text-center mt-5 shadow-md flex justify-center gap-3  rounded-sm items-center">
+        <div className="w-full px-3 py-1 text-center mt-5 shadow-md flex justify-center gap-3  rounded-sm items-center font-barlow">
             <EmailSVG />
             <p>Verification email has been succesfully sent</p>
         </div>
     )
     const ErrorNotification = () => (
-        <div className="w-full px-3 py-1 text-center mt-5 shadow-md bg-red-500 flex justify-center gap-3  rounded-sm items-center">
+        <div className="w-full px-3 py-1 text-center mt-5 shadow-md bg-red-500 flex justify-center gap-3  rounded-sm items-center font-barlow">
             <p>Something went wrong... Try again</p>
         </div>
     )
@@ -127,21 +133,23 @@ const Profile: React.FC<any> = () => {
 
 
     return (
-        <div className="w-full">
+        <motion.div variants={fadeIn('left', 'linear', .2, 1)}
+            className="w-full text-lightText sm:w-[650px] mt-5 mx-auto rounded-[10px] bg-bgGreenTwoCornerShade">
+            <div
+                className="bg-[#222222CC] w-full p-[2em] border-solid border-[1px] border-[#004615] rounded-[10px]">
+                <span className="text-[16px] font-grotesk">Status: <span className="font-bold font-barlow">{verified ? 'verified' : 'unverified'}</span></span>
 
-            <h1 className="text-[24px] font-bold mb-[1vw]">Account settings</h1>
-            <span className="text-[16px]">Status: <span className="font-bold">{verified ? 'verified' : 'unverified'}</span></span>
-
-
-            <div className="w-full sm:w-[650px] mt-5 caret-gray-400 border-b-gray-400 border-b-2 py-4">
-                <div className="w-full border-b-gray-400 border-b-2py-5">
-
-                    <div className="w-full flex">
-
-                        <div className="w-[25%] text">Email</div>
+                <>
+                    <div className="w-full border-b-gray-400 border-b-2 py-5 ">
+                        <div className="w-full flex justify-between">
+                            <div className="text mb-5 font-grotesk">Email </div>
+                            {
+                                emailEditable ? <VerifyButton /> : spin ? <Loader /> : <EditPencilSVG handler={() => setEmailEditable(true)} />
+                            }
+                        </div>
 
                         <input type="text" className={
-                            `w-[50%] px-2 rounded-sm shadow-lg outline-none bg-gray-400 ${emailEditable ? 'text-white caret-black' : 'text-gray-300 bg-transparent'}`
+                            `w-full px-2 rounded-[10px] shadow-lg outline-none border-[1px] border-solid border-[#004615] px-[1vw] py-[1vh] ${emailEditable ? 'text-lightText caret-lightText bg-secondary ' : 'text-accent bg-[#004615]'}`
                         }
                             value={userEmail}
                             readOnly={!emailEditable}
@@ -149,51 +157,38 @@ const Profile: React.FC<any> = () => {
                                 setUserEmail(e.target.value)
                             }}
                         />
-                        {
-                            emailEditable ? <VerifyButton /> : spin ? <Loader /> : <EditPencilSVG handler={() => setEmailEditable(true)} />
+
+                        {emailSent && <SentEmailNotification />}
+                        {error.length > 0 && <ErrorNotification />}
+                    </div>
+                </>
+
+                <>
+                    <div className="w-full border-b-gray-400 border-b-2 py-5">
+                        <div className="w-full flex justify-between">
+                            <div className="text mb-5 font-grotesk">Steam Trade URL</div>
+                            {tradeURLEditable ? <VerifyTradeUrlButton /> : <EditPencilSVG handler={() => setTradeURLEditable(true)} />}
+                        </div>
+
+                        <input type="text" className={
+                            `w-full px-2 rounded-[10px] shadow-lg outline-none border-[1px] border-solid border-[#004615] px-[1vw] py-[1vh] ${tradeURLEditable ? 'text-lightText caret-lightText bg-secondary' : 'text-accent bg-[#004615]'}`
                         }
-
-                    </div>
-                    {emailSent && <SentEmailNotification />}
-                    {error.length > 0 && <ErrorNotification />}
-
-                </div>
-
-
-
-
-            </div>
-
-            <div className="w-full sm:w-[650px] mt-5 caret-gray-400">
-                <div className="w-full border-b-gray-400 border-b-2 py-5">
-
-                    <div className="w-full flex justify-between">
-
-                        <div className="text mb-5">Steam Trade URL</div>
-                        {tradeURLEditable ? <VerifyTradeUrlButton /> : <EditPencilSVG handler={() => setTradeURLEditable(true)} />}
-
-
+                            value={tradeURL}
+                            readOnly={!tradeURLEditable}
+                            onChange={(e) => {
+                                setTradeURL(e.target.value)
+                            }}
+                        />
                     </div>
 
-                    <input type="text" className={
-                        `w-full px-2 rounded-sm shadow-lg outline-none bg-gray-400 ${tradeURLEditable ? 'text-white caret-black' : 'text-gray-300 bg-transparent'}`
+                    {tradeURLError &&
+                        <div className="w-full px-3 py-1 text-center mt-5 shadow-md bg-red-500 flex justify-center gap-3  rounded-sm items-center font-barlow">
+                            <p>ERROR OCCURED</p>
+                        </div>
                     }
-                        value={tradeURL}
-                        readOnly={!tradeURLEditable}
-                        onChange={(e) => {
-                            setTradeURL(e.target.value)
-                        }}
-                    />
-
-
-                </div>
-
-                {tradeURLError && <div className="w-full justify-center bg-red-400"><p>ERROR OCCURED</p></div>}
-
-
-
+                </>
             </div>
-        </div>
+        </motion.div>
     )
 }
-export default SectionWrapper(Profile, '', "", "", "")
+export default SectionWrapper(Profile, "", "", "", "")

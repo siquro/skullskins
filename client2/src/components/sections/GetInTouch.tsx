@@ -32,7 +32,7 @@ const GetInTouch = () => {
             <textarea name="" id="" rows={10} placeholder="Message here" className="input h-[5vw]" ></textarea>
 
 
-            <button className='font-barlow font-bold px-[45px] py-[15px] mt-[40px] custom_btn text-lightText
+            <button className='font-barlow font-bold px-[45px] py-[15px] mt-[40px] text-lightText
                 rounded-[10px] bg-btnBg hover:bg-btnBgHover'>SUBMIT</button>
         </motion.div>
     </div>

@@ -249,7 +249,7 @@ const ItemList = () => {
                                     placeholder="Search by name or price"
                                     value={searchTerm}
                                     onChange={handleSearch}
-                                    className="rounded-[10px] px-3 py-2 text-sm font-semibold font-grotesk text-lightText shadow-sm border-solid border-[1px] border-[#004615] focus:outline-none bg-secondary"
+                                    className=" caret-lightText rounded-[10px] px-3 py-2 text-sm font-semibold font-grotesk text-lightText shadow-sm border-solid border-[1px] border-[#004615] focus:outline-none bg-secondary"
                                 />
                             </div>
 
