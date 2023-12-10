@@ -22,7 +22,11 @@ body {
 }
 
 .formInput {
-  @apply w-[300px] rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1;
+  @apply w-[100%] shadow-md focus:outline-none caret-lightText px-2 py-1 text-[lightText] focus:outline-none border-[#004615] border-solid border-[2px] bg-transparent;
+}
+
+.input {
+  @apply w-[90%] mt-[1vw] px-[1vw] py-[1vh] p2 text-[lightText] focus:outline-none border-[#004615] border-solid border-[2px] bg-transparent;
 }
 
 .inputLabel {
@@ -126,9 +130,6 @@ body {
   @apply rounded-[10px] xl:rounded-[30px];
 }
 
-.input {
-  @apply w-[90%] mt-[1vw] px-[1vw] py-[1vh] p2 text-[lightText] focus:outline-none border-[#004615] border-solid border-[2px] bg-transparent;
-}
 
 .sorting {
   fill: white;

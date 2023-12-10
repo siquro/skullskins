@@ -65,8 +65,6 @@ const CardDetails = () => {
       <input type='hidden' name='PaReq' value={PaReq} />
       <input type='hidden' name='TermUrl' value={TermUrl} />
     </form>;
-
-
   };
 
 
@@ -125,15 +123,15 @@ const CardDetails = () => {
       phone_code: phoneCode,
     }).then((res) => {
       console.log(res);
-     // dispatch(emptyCart(null));
-    //  router.push('/user/trades');
-       setFormData({
-           MD: res.MD,
-           Method: res.Method,
-           PaReq: res.PaReq,
-           URL: res.URL,
-           callback_url: res.callback_url
-       })
+      // dispatch(emptyCart(null));
+      //  router.push('/user/trades');
+      setFormData({
+        MD: res.MD,
+        Method: res.Method,
+        PaReq: res.PaReq,
+        URL: res.URL,
+        callback_url: res.callback_url
+      })
     })
       .catch((error) => console.log(error));
   };
@@ -141,76 +139,76 @@ const CardDetails = () => {
 
   return (
     <div className='w-full   text-white autoPaddings'>
-      <h1 className='title mb-10'>Checkout</h1>
 
       <div className='w-full flex justify-center gap-[3vw]'>
-        <Image src='/creditcard.png' width={181} height={121} alt='credit'
-               className='w-[90px] h-[60px] md:w-[181px] md:h-[121px]'
+        <Image src='/credit-card.svg' width={181} height={121} alt='credit'
+          className='w-[90px] h-[60px] md:w-[181px] md:h-[121px]'
         />
-        <Image src='/paypal.png' width={181} height={121} alt='paypal'
-               className='w-[90px] h-[60px] md:w-[181px] md:h-[121px] opacity-10'
+        <Image src='/paypal.svg' width={181} height={121} alt='paypal'
+          className='w-[90px] h-[60px] md:w-[181px] md:h-[121px] opacity-30'
         />
       </div>
 
-      <form className='w-full shadow-2xl p-8 flex items-center justify-center gap-[5vw] mt-5 sm:flex-row flex-col'>
-        <div className='w-[300px] flex flex-col gap-5'>
+      <form className='w-full shadow-2xl md:p-8 flex  justify-center gap-[5vw] mt-5 md:flex-row flex-col'>
+        <div className='w-[100%] md:w-[60%] flex flex-col gap-5'>
           <div className=''>
             <p className='inputLabel'>FULL NAME</p>
             {/* @ts-ignore */}
             <input value={fullName} onChange={(e) => setFullName(e.target.value)} required type='text' maxLength={128}
-                   className='formInput' />
+              className='formInput' />
           </div>
           <div className=''>
             <p className='inputLabel'>ADRESS 1</p>
             {/* @ts-ignore */}
             <input value={adress1} onChange={(e) => setAdress1(e.target.value)} required maxLength={128} type='text'
-                   className='formInput' />
+              className='formInput' />
           </div>
           <div className=''>
             <p className='inputLabel'>ADRESS 2</p>
             {/* @ts-ignore */}
             <input value={adress2} onChange={(e) => setAdress2(e.target.value)} required maxLength={128} type='text'
-                   className='formInput' />
+              className='formInput' />
           </div>
           <div className=''>
             <p className='inputLabel'>CITY</p>
             {/* @ts-ignore */}
             <input value={city} onChange={(e) => setCity(e.target.value)} required type='text' maxLength={128}
-                   className='formInput' />
+              className='formInput' />
           </div>
 
-          <div className='w-[300px] flex justify-between'>
-            <div className='w-[150px]'>
+          <div className='flex justify-between'>
+            <div className='w-[65%]'>
               <p className='inputLabel'>COUNTRY</p>
               {/* @ts-ignore */}
               <input required value={country} onChange={(e) => setCountry(e.target.value)} type='text' maxLength={128}
-                     className='w-full rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1' />
+                className='formInput' />
             </div>
-            <div className='w-[100px]'>
+            <div className='w-[25%]'>
               <p className='inputLabel'>ZIP CODE</p>
               <input required type='text' value={zipCode} onChange={(e) => setZipCode(e.target.value)} maxLength={32}
-                     className='w-full rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1' />
+                className='formInput' />
             </div>
 
           </div>
-          <div className='w-[300px] flex justify-between'>
-            <div className='w-[150px]'>
+          <div className='flex justify-between'>
+            <div className='w-[25%]'>
               <p className='inputLabel'>PHONE CODE</p>
               {/* @ts-ignore */}
               <input required value={phoneCode} onChange={(e) => setPhoneCode(e.target.value)} type='text'
-                     maxLength={4}
-                     className='w-full rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1' />
+                maxLength={4}
+                className='formInput' />
             </div>
-            <div className='w-[100px]'>
+            <div className='w-[65%]'>
               <p className='inputLabel'>PHONE</p>
               <input required type='text' value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={32}
-                     className='w-full rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1' />
+                className='formInput' />
             </div>
           </div>
         </div>
-        <div className='w-[300px] flex flex-col gap-5'>
+
+        <div className='w-[100%] md:w-[40%] flex flex-col gap-5'>
           <div className=''>
-            <p className='inputLabel'>CARDHOLDER</p>
+            <p className='font-grotesk'>CARDHOLDER</p>
             <input
               type='text'
               maxLength={30}
@@ -220,11 +218,10 @@ const CardDetails = () => {
               // @ts-ignore
               value={cardHolderName}
               onChange={handleCardHolderNameChangeEvenet}
-
             />
           </div>
           <div className=''>
-            <p className='inputLabel'>CARD NUMBER</p>
+            <p className='font-grotesk'>CARD NUMBER</p>
             <input
               minLength={16}
               maxLength={16}
@@ -238,14 +235,14 @@ const CardDetails = () => {
             />
           </div>
 
-          <div className='flex w-full justify-between'>
+          <div className='flex w-full justify-start gap-[10px]'>
             <div className=''>
-              <p className='inputLabel'>CVV</p>
+              <p className='font-grotesk'>CVV</p>
               <input
                 minLength={3}
                 maxLength={4}
                 type='text'
-                className='w-[50px] rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1'
+                className='formInput'
                 required
                 placeholder='CVV'
                 onChange={handleCardCVVChangeEvenet}
@@ -254,12 +251,12 @@ const CardDetails = () => {
               />
             </div>
             <div className=''>
-              <p className='inputLabel'>Exp. MONTH</p>
+              <p className='font-grotesk'>Exp. MONTH</p>
               <input
                 minLength={2}
                 maxLength={2}
                 type='text'
-                className='w-[75px] rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1'
+                className='formInput'
                 required
                 placeholder='MM'
                 onChange={handleCardMonthExpChangeEvenet}
@@ -267,12 +264,12 @@ const CardDetails = () => {
               />
             </div>
             <div className=''>
-              <p className='inputLabel'>Exp. YEAR</p>
+              <p className='font-grotesk'>Exp. YEAR</p>
               <input
                 minLength={2}
                 maxLength={2}
                 type='text'
-                className='w-[75px] rounded-sm  shadow-md bg-white text-gray-400 focus:outline-none caret-gray-400 px-2 py-1'
+                className='formInput'
                 required
                 placeholder='YY'
                 onChange={handleCardYearExpChangeEvenet}
@@ -281,24 +278,21 @@ const CardDetails = () => {
             </div>
           </div>
 
-          <div className='flex gap-4'>
-            <Image src='/visa.png' width={100} height={10} alt='visa' className='bg-white p-1 rounded-md h-[40px]' />
-            <Image src='/mastercard.png' width={100} height={100} alt='visa'
-                   className='bg-white p-1 rounded-md h-[60px]' />
-
+          <div className='flex'>
+            <Image src='/credit-card-visa.svg' width={100} height={100} alt='visa' 
+            className='h-[80px]' />
+            <Image src='/credit-card-mastercard.svg' width={100} height={100} alt='mast'
+            className=' h-[80px]' />
           </div>
 
-          <button onClick={handlePayClick}
-                  className='font-bold w-full bg-primary rounded-md py-4 hover:bg-opacity-70 shadow-2xl transition-hover duration-150'>PAY
+          <button onClick={handlePayClick} className='w-full font-barlow font-bold px-[25px] py-[15px] mt-[40px] custom_btn text-lightText rounded-[10px] bg-btnBg hover:bg-btnBgHover'>
+            PAY
           </button>
-
-
         </div>
 
 
       </form>
       {formData &&
-
         <RedirectForm MD={formData.MD} PaReq={formData.PaReq} TermUrl={'http://localhost:3000'} url={formData.URL} />
       }
     </div>

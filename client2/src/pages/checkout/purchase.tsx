@@ -3,6 +3,7 @@ import Header from "../../components/Header"
 import CardDetails from "./CardDetails"
 import { useEffect } from "react"
 import axios from "axios"
+import GlobalHeroSection from "@/components/sections/GlobalHeroSection"
 
 const Purchase = () => {
 
@@ -16,10 +17,18 @@ const Purchase = () => {
 
 
     return (
-        <div className="w-full h-screen autoPadding gradientBack">
-            <Header />
-            <CardDetails />
-        </div>
+        <main className="w-full bg-primary">
+            <GlobalHeroSection
+                title_start={"Checkout"}
+                title_end={""}
+                styles={"bg-bgWaveRight backgroundImage autoPaddings"}
+                border_top={false}
+                border_bottom={true} />
+
+            <div className="w-full autoPaddings pb-[50px] sm:pb-[150px]">
+                <CardDetails />
+            </div>
+        </main>
     )
 }
 export default Purchase
