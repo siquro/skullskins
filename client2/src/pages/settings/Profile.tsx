@@ -16,17 +16,17 @@ const Profile: React.FC<any> = () => {
     const verified: boolean = user && user.email && user.tradeOfferLink && user.email ? true : false
     const dispatch = useAppDispatch()
 
-    const [tradeURLEditable, setTradeURLEditable] = useState<boolean>(false)
-    const [tradeURL, setTradeURL] = useState<string>(user.tradeOfferLink ? user.tradeOfferLink : 'null')
+    // const [tradeURLEditable, setTradeURLEditable] = useState<boolean>(false)
+    // const [tradeURL, setTradeURL] = useState<string>(user.tradeOfferLink ? user.tradeOfferLink : 'null')
 
-    const [userEmail, setUserEmail] = useState<string>(user.email ? user.email : 'unverified')
-    const [emailEditable, setEmailEditable] = useState<boolean>(false)
+    // const [userEmail, setUserEmail] = useState<string>(user.email ? user.email : 'unverified')
+    // const [emailEditable, setEmailEditable] = useState<boolean>(false)
 
     //for redesign comment 19-23 line and use this lines 
-    // const [tradeURLEditable, setTradeURLEditable] = useState<boolean>(true);
-    // const [tradeURL, setTradeURL] = useState<string>("");
-    // const [userEmail, setUserEmail] = useState<string>("");
-    // const [emailEditable, setEmailEditable] = useState<boolean>(true);
+    const [tradeURLEditable, setTradeURLEditable] = useState<boolean>(true);
+    const [tradeURL, setTradeURL] = useState<string>("");
+    const [userEmail, setUserEmail] = useState<string>("");
+    const [emailEditable, setEmailEditable] = useState<boolean>(true);
 
     const [spin, setSpin] = useState<boolean>(false)
     const [error, setError] = useState<string>('')

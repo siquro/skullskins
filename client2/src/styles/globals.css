@@ -8,6 +8,7 @@ body {
 
 ::-webkit-scrollbar {
   width: 15px;
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-track {
   background: #1b1b1b;

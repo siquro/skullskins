@@ -5,12 +5,12 @@ import Slider from "react-slick"
 import { useAppDispatch, addToCart } from '@/redux';
 
 const items: Array<any> = [
-    { price: 150, imageURL: '/items/i1.png', name: 'AK-47' },
-    { price: 54, imageURL: '/items/i2.png', name: 'Skull' },
-    { price: 34, imageURL: '/items/i3.png', name: 'Crossbow' },
-    { price: 2500, imageURL: '/items/i1.png', name: 'AK-47' },
-    { price: 5, imageURL: '/items/i2.png', name: 'Skull' },
-    { price: 15, imageURL: '/items/i3.png', name: 'Crossbow' },
+    { price: 150, imageURL: '/items/i1.png', marketHashName: 'AK-47', assetId:1 },
+    { price: 54, imageURL: '/items/i2.png', marketHashName: 'Skull', assetId:2 },
+    { price: 34, imageURL: '/items/i3.png', marketHashName: 'Crossbow', assetId:3  },
+    { price: 2500, imageURL: '/items/i1.png', marketHashName: 'AK-47', assetId:4 },
+    { price: 5, imageURL: '/items/i2.png', marketHashName: 'Skull', assetId:5 },
+    { price: 15, imageURL: '/items/i3.png', marketHashName: 'Crossbow', assetId:6 },
 ]
 const BestDeals = () => {
     const [currentItem, setCurrentItem] = useState(0);
@@ -66,7 +66,7 @@ const BestDeals = () => {
                    xl:rounded-[0_0_8px_0] rounded-[0_0_8px_0]
                    mx-auto my-0 pr-[1vw]
                    flex items-center">
-                    <p className="ml-auto font-bold mr-3 text-[18px]">{currentItemInfo.name}</p>
+                    <p className="ml-auto font-bold mr-3 text-[18px]">{currentItemInfo.marketHashName}</p>
                     <div className="absolute bg-accent text-primary px-[1vw] py-[2px] self-end skew-x-[-18deg] right-0 top-[-35px] mr-3">
                         <div className="skew-x-[18deg]">
                             <span className="text-[20px] font-bold">{currentItemInfo.price} $</span>
