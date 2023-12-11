@@ -217,7 +217,7 @@ const ItemList = () => {
                     onClick={() => { setActivePage((prev) => prev - 1) }}
                     disabled={activePage <= 1}
                     className={`${activePage >= totalPages ? "invisible" : 'visible'} cursor-pointer transition ease-in-out delay-200 
-                    font-barlow font-bold px-[45px] py-[15px] mt-[40px] custom_btn text-lightText
+                    font-barlow font-bold px-[20px] sm:px-[35px] py-[10px] text-lightText text-[12px]
                     rounded-[10px] bg-btnBg hover:bg-btnBgHover`}
                 >
                     BACK</button>}
@@ -227,7 +227,7 @@ const ItemList = () => {
                     onClick={() => { setActivePage((prev) => prev + 1) }}
                     disabled={activePage >= totalPages}
                     className={`${activePage < totalPages ? "visible" : 'invisible'}  cursor-pointer transition ease-in-out delay-200 
-                    font-barlow font-bold px-[45px] py-[15px] mt-[40px] custom_btn text-lightText
+                    font-barlow font-bold px-[20px] sm:px-[35px] py-[10px] text-lightText text-[12px]
                 rounded-[10px] bg-btnBg hover:bg-btnBgHover`}>
                     NEXT</button>}
 
@@ -242,14 +242,14 @@ const ItemList = () => {
                     <div className="relative">
                         {watchingItem && <ActiveItem item={watchingItem} setActiveWatching={setWatchingItem} />}
 
-                        <div className="relative test-class flex justify-between">
+                        <div className="relative flex flex-col sm:flex-row gap-[20px] justify-between">
                             <div>
                                 <input
                                     type="text"
                                     placeholder="Search by name or price"
                                     value={searchTerm}
                                     onChange={handleSearch}
-                                    className=" caret-lightText rounded-[10px] px-3 py-2 text-sm font-semibold font-grotesk text-lightText shadow-sm border-solid border-[1px] border-[#004615] focus:outline-none bg-secondary"
+                                    className="w-[100%] caret-lightText rounded-[10px] px-3 py-2 text-sm font-semibold font-grotesk text-lightText shadow-sm border-solid border-[1px] border-[#004615] focus:outline-none bg-secondary"
                                 />
                             </div>
 
@@ -264,7 +264,7 @@ const ItemList = () => {
                                 </div>
 
                                 <div className={`${active ? "block" : "hidden"
-                                    } absolute top-[35px] right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-[#004615] rounded-[10px] bg-secondary shadow-lg border-[#004615] border-solid border-[1px] text-lightText font-barlow`}  >
+                                    } absolute top-[90px] sm:top-[35px] right-0 z-10 mt-2 w-[100%] sm:w-56 origin-top-right divide-y divide-[#004615] rounded-[10px] bg-secondary shadow-lg border-[#004615] border-solid border-[1px] text-lightText font-barlow`}  >
                                     <div className="py-1">
                                         <div onClick={() => (handleFiltering(SortingENUM.ASC_PRICE), handelSortMenu())}
                                             className="cursor-pointer hover:text-accent">

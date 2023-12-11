@@ -35,7 +35,7 @@ const ActiveItem: React.FC<IProps> = ({ item, setActiveWatching }) => {
     const imageFullURL = `${item.imageURL}`
 
     return (
-        <div className={`absolute bg-secondary rounded-[10px] p-[10px] sm:p-[2em] mt-[48px] mx-[auto] w-full h-fit sm:h-[500px] md:h-full`}>
+        <div className={`absolute bg-secondary rounded-[10px] p-[10px] sm:p-[2em] mt-[110px] sm:mt-[48px] mx-[auto] w-full h-fit sm:h-[500px] md:h-full`}>
             <div className="h-full mx-auto p-[10px] sm:p-4 relative flex flex-col sm:flex-row justify-between w-[100%]">
                 <div className="w-[100%] sm:w-1/2 bg-primary h-[250px] sm:h-full flex items-center
                 border-[#004615] border-solid border sm:rounded-l-[10px]">
@@ -46,7 +46,7 @@ const ActiveItem: React.FC<IProps> = ({ item, setActiveWatching }) => {
                 sm:rounded-r-[10px] border-solid border-2 border-[#02fe4f]">
 
                     <div className="absolute right-[15px] top-[15px]" onClick={() => setActiveWatching(null)}>
-                        <CloseBTNSVG className="fill-white cursor-pointer hover:rotate-90 transition-transform duration-100 hover:fill-secondAccent" />
+                        <CloseBTNSVG className="fill-white cursor-pointer hover:rotate-90 transition-transform duration-100 hover:fill-secondAccent w-[25px] h-[25px]" />
                     </div>
 
                     <div className="w-full mt-[50px] sm:mt-[30%] flex flex-col md:flex-row justify-between">
