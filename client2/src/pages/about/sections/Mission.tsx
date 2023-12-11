@@ -9,13 +9,13 @@ const Mission = () => {
 
     const Card: React.FC<any> = ({ title, par, imageURL, reverse }) => {
         return (
-            <motion.div className={`w-full flex flex-col relative mx-[0] md:ma-[20px] rounded-[10px] p-[2em] bg-[#1c1c1c80] h-fit`}>
+            <motion.div className={`w-full flex flex-col relative mx-[0] md:ma-[20px] rounded-[10px] p-[15px] md:p-[2em] bg-[#1c1c1c80] h-fit`}>
                 <div className="">
                     <Image src={imageURL} width={752} height={520} alt="player" className="about_image rounded-[10px]" priority />
                 </div>
 
 
-                <div className="rounded-[10px] border-solid border-2 border-[#02fe4f] bg-bgGreenOneCornerShade p-[2em]">
+                <div className="rounded-[10px] border-solid border-2 border-[#02fe4f] bg-bgGreenOneCornerShade p-[15px] md:p-[2em]">
                     <h2 className="mt-7 mb-[40px] text-[36px] font-semibold leading-7 font-grotesk text-lightText">{title}</h2>
                     <p className="mt-2 text-base leading-7 text-lightText font-barlow text-lightText">{par}</p>
                 </div>
