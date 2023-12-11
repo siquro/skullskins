@@ -130,13 +130,11 @@ const Profile: React.FC<any> = () => {
         </svg>
     )
 
-
-
     return (
         <motion.div variants={fadeIn('left', 'linear', .2, 1)}
             className="w-full text-lightText sm:w-[650px] mt-5 mx-auto rounded-[10px] bg-bgGreenTwoCornerShade">
             <div
-                className="bg-[#222222CC] w-full p-[2em] border-solid border-[1px] border-[#004615] rounded-[10px]">
+                className="bg-[#222222CC] w-full p-[15px] md:p-[2em] border-solid border-[1px] border-[#004615] rounded-[10px]">
                 <span className="text-[16px] font-grotesk">Status: <span className="font-bold font-barlow">{verified ? 'verified' : 'unverified'}</span></span>
 
                 <>
