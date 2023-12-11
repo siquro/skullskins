@@ -72,7 +72,7 @@ const Header: React.FC<any> = ({ }) => {
                     <span className="mr-[64px] hover:text-gray-300">Shop</span>
                 </Link>
             </nav>
-            <Link href="/">
+            <Link href="/" className="hidden md:block">
                 <Image src="/skull_skins-text.svg" width={64} height={64} alt="skull_logo" className="skullLogo w-[64px] h-auto" priority />
             </Link>
 

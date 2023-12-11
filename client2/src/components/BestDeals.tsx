@@ -46,7 +46,7 @@ const BestDeals = () => {
 
 
     return (
-        < div className="mt-[140px] pb-[50px]">
+        < div className="mt-[120px] sm:mt-[140px] pb-[50px]">
             <Slider {...settings}>
                 {items.map((item, index) => (
                     <div key={index}>
@@ -61,7 +61,7 @@ const BestDeals = () => {
                 ))}
             </Slider>
 
-            <div className="bg-transparent min-h-[230px] relative mt-[-180px] mx-auto flex rounded-[10px] fixed_frame items-end w-[230px] md:w-[280px] lg:w-[320px]">
+            <div className="bg-transparent min-h-[180px] sm:min-h-[230px] relative mt-[-180px] mx-auto flex rounded-[10px] fixed_frame items-end w-[200px] sm:w-[230px] md:w-[280px] lg:w-[320px]">
                 <div className="relative min-h-[29px] h-[3vw] max-h-[90px] w-[100%] 
                    xl:rounded-[0_0_8px_0] rounded-[0_0_8px_0]
                    mx-auto my-0 pr-[1vw]
@@ -73,7 +73,7 @@ const BestDeals = () => {
                         </div>
                     </div>
                 </div>
-                <button className="absolute bottom-[-100px] right-[0px] left-[0px] mx-auto my-0 
+                <button className="absolute bottom-[-110px] sm:bottom-[-100px] right-[0px] left-[0px] mx-auto my-0 
                 font-barlow font-bold px-[45px] py-[15px] mt-[40px] text-lightText rounded-[10px] bg-btnBg hover:bg-btnBgHover"
                     onClick={() => dispatch(addToCart(currentItemInfo))}  >ADD TO CART</button>
             </div>

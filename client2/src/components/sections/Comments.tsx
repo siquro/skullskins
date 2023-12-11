@@ -57,13 +57,13 @@ const Comments = () => {
 
     const Card = ({ name, text, stars }: { name: string, text: string, stars: number }) => {
         return <div
-            className="relative min-h-[440px] flex flex-col justify-center mx-[20px] rounded-[10px] p-[2em] bg-[#1c1c1c80]">
+            className="relative min-h-[440px] flex flex-col justify-center mx-[20px] rounded-[10px] p-[15px] sm:p-[2em] bg-[#1c1c1c80]">
             <div className='rounded-[10px] border-solid border-2 border-[#02fe4f] bg-bgGreenOneCornerShade p-[2em] min-h-[370px] '>
                 <dt className="flex justify-center">
                     <div className="flex flex-row h-10 w-10 justify-center gap-1">
                         {
                             new Array(stars).fill(1).map((star, key) =>
-                                <Image src="./star-reviews.svg" key={key} width={28} height={28} alt="star" className='w-[auto] h-[auto]' />)
+                                <Image src="./star-reviews.svg" key={key} width={28} height={28} alt="star" className=' w-[15px] sm:w-[auto] h-[auto]' />)
                         }
                     </div>
                 </dt>

@@ -29,7 +29,7 @@ const GetInTouch = () => {
 
             <input type="text" placeholder="Name" className="input" />
             <input type="text" placeholder="Email adress" className="input" />
-            <textarea name="" id="" rows={10} placeholder="Message here" className="input h-[5vw]" ></textarea>
+            <textarea name="" id="" rows={10} placeholder="Message here" className="input" ></textarea>
 
 
             <button className='font-barlow font-bold px-[45px] py-[15px] mt-[40px] text-lightText

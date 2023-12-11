@@ -25,7 +25,7 @@ export default function Home() {
         <Offers />
         <BestDealSection />
         <Comments />
-        <GetInTouch/>
+        <GetInTouch />
       </main>
     </>
 
