@@ -5,12 +5,12 @@ import Slider from "react-slick"
 import { useAppDispatch, addToCart } from '@/redux';
 
 const items: Array<any> = [
-    { price: 150, imageURL: '/items/i1.png', marketHashName: 'AK-47', assetId:1 },
-    { price: 54, imageURL: '/items/i2.png', marketHashName: 'Skull', assetId:2 },
-    { price: 34, imageURL: '/items/i3.png', marketHashName: 'Crossbow', assetId:3  },
-    { price: 2500, imageURL: '/items/i1.png', marketHashName: 'AK-47', assetId:4 },
-    { price: 5, imageURL: '/items/i2.png', marketHashName: 'Skull', assetId:5 },
-    { price: 15, imageURL: '/items/i3.png', marketHashName: 'Crossbow', assetId:6 },
+    { price: 150, imageURL: '/items/i1.png', marketHashName: 'AK-47', assetId: 1 },
+    { price: 54, imageURL: '/items/i2.png', marketHashName: 'Skull', assetId: 2 },
+    { price: 34, imageURL: '/items/i3.png', marketHashName: 'Crossbow', assetId: 3 },
+    { price: 2500, imageURL: '/items/i1.png', marketHashName: 'AK-47', assetId: 4 },
+    { price: 5, imageURL: '/items/i2.png', marketHashName: 'Skull', assetId: 5 },
+    { price: 15, imageURL: '/items/i3.png', marketHashName: 'Crossbow', assetId: 6 },
 ]
 const BestDeals = () => {
     const [currentItem, setCurrentItem] = useState(0);
@@ -53,15 +53,15 @@ const BestDeals = () => {
                         <div className={index === currentItem
                             ? "centeredItem scale-100 transition-transform duration-500 ease-in-out"
                             : "otherItem opacity-50 scale-75 transition-transform duration-500 ease-in-out"}>
-                            <div className="relative flex w-[100%] items-center justify-center">
-                                <Image src={item.imageURL} width={128} height={128} alt={item.name} className="item_img" />
+                            <div className="relative flex w-[100%] items-center justify-center ">
+                                <Image src={item.imageURL} width={128} height={128} alt={item.name} className="item_img"/>
                             </div>
                         </div>
                     </div>
                 ))}
             </Slider>
 
-            <div className="bg-transparent min-h-[180px] sm:min-h-[230px] relative mt-[-180px] mx-auto flex rounded-[10px] fixed_frame items-end w-[200px] sm:w-[230px] md:w-[280px] lg:w-[320px]">
+            <div className="bg-transparent min-h-[180px] sm:min-h-[230px] relative mt-[-180px] mx-auto flex fixed_frame items-end w-[200px] sm:w-[230px] md:w-[280px] lg:w-[320px]">
                 <div className="relative min-h-[29px] h-[3vw] max-h-[90px] w-[100%] 
                    xl:rounded-[0_0_8px_0] rounded-[0_0_8px_0]
                    mx-auto my-0 pr-[1vw]

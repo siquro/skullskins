@@ -92,9 +92,6 @@ const Header: React.FC<any> = ({ }) => {
 
                 {user ? <User /> : <SteamButton />}
             </div>
-
-
-
         </div>
 
     )

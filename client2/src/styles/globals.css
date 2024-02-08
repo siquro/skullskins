@@ -168,8 +168,8 @@ body {
 /* best deals */
 
 .fixed_frame {
-  box-shadow: 0px 20px 0px -10px #0e0e0e, 0px -20px 0px -10px #0e0e0e, 20px 0px 0px -10px #0e0e0e,
-    -20px 0px 0px -10px #0e0e0e, 0px 0px 0px 10px rgb(4, 217, 157), 5px 5px 15px 5px rgba(4, 217, 157, 0);
+  box-shadow: 0px 20px 0px -9px #0e0e0e, 0px -20px 0px -9px #0e0e0e, 20px 0px 0px -9px #0e0e0e,
+    -20px 0px 0px -9px #0e0e0e, 0px 0px 0px 9px rgb(4, 217, 157), 5px 5px 15px 5px rgba(4, 217, 157, 0);
 }
 
 .gradient_border-top {
