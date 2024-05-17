@@ -39,7 +39,7 @@ export class UserController {
   }
 
   @Get()
-  getUserInfo(@Req() req: IRequest): any {
+  getUserInfo(@Req() req: any): any {
     const user = this.aesService.decodingUserToken(req.query.accessToken);
     return this.userService.getUserInfo(user.steamId);
   }
@@ -51,7 +51,7 @@ export class UserController {
   }
 
   @Get('/trades')
-  getUserTrades(@Req() req: IRequest) {
+  getUserTrades(@Req() req: any) {
     const accessToken = req.headers.authorization;
     return this.userService.getUserTrades(accessToken);
   }
