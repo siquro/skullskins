@@ -20,9 +20,6 @@ jobs:
         run: |
           CHANGED_DIR=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | cut -d/ -f1 | sort -u)
           echo "CHANGED_DIR=$CHANGED_DIR" >> $GITHUB_ENV
-      
-      - name: Test
-        run: curl -v telnet://${{ secrets.HOST }}:${{ secrets.PORT }}
 
       - name: Deploy to production
         uses: appleboy/ssh-action@master
