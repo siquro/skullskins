@@ -56,8 +56,8 @@ const CardDetails = () => {
 
   const RedirectForm: React.FC<FormData> = ({ url, TermUrl, MD, PaReq }) => {
     const ref = useRef(null);
-    // @ts-ignore
     useEffect(() => {
+      // @ts-ignore
       ref.current.submit();
     }, []);
     return <form action={url} method='POST' ref={ref}>
