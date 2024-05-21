@@ -10,7 +10,12 @@ import axios from 'axios';
 import * as SteamUser from 'steam-user';
 import * as TradeOfferManager from 'steam-tradeoffer-manager';
 import * as SteamCommunity from 'steamcommunity';
-import { IOrderObject2, IOrdersObject, ISteamInventory, ISteamMarket } from '../types';
+import {
+  IOrderObject2,
+  IOrdersObject,
+  ISteamInventory,
+  ISteamMarket,
+} from '../types';
 import { off } from 'process';
 import { PrismaService } from '@st/common';
 
@@ -56,13 +61,9 @@ enum ConfirmationType {
   MarketListing = 3,
 }
 
-
 @Injectable()
 export class SteamBotService {
-  constructor(
-    private readonly prismaService: PrismaService,
-  ) {
-  }
+  constructor(private readonly prismaService: PrismaService) {}
 
   private readonly botsCollection: Map<string, IBotCollection> = new Map<
     string,
@@ -71,33 +72,38 @@ export class SteamBotService {
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
 
-
-  public async login(dto: SteamLogin) {
+  public async login(dto: any) {
     let isError = false;
     const community = new SteamCommunity();
     let user: any;
-    let manager = new TradeOfferManager({ steam: new SteamUser() });
+    const manager = new TradeOfferManager({ steam: new SteamUser() });
 
-    community.oAuthLogin(dto.guardToken, dto.oAuthToken, (err, sessionID, cookies) => {
-      console.log(sessionID, cookies);
-      if (err) isError = true;
+    community.login(dto, (err, sessionID, cookies, steamguard) => {
+      if (err) {
+        isError = true;
+        console.error(`steamBotService login error: ${err}`)
+      }
       community.setCookies(cookies as any);
       community.getClientLogonToken((err, details) => {
         user = new SteamUser({ enablePicsCache: true });
         // Ensure that we have logged in properly and that our app information has loaded in
         user.logOn(details);
         user.on('loggedOn', () => {
-          console.log('[STEAM_TRADE_BOT] Bot has been sucessfully started!', user, manager);
+          console.log(
+            '[STEAM_TRADE_BOT] Bot has been sucessfully started!',
+            user,
+            manager,
+          );
           manager.setCookies(cookies as any);
-          user.on('appOwnershipCached', () => {
-          });
+          user.on('appOwnershipCached', () => {});
         });
       });
     });
 
-    manager.on('sentOfferChanged', async function(offer, oldState) {
+    manager.on('sentOfferChanged', async function (offer, oldState) {
       Logger.log(
-        `[STEAM SERVICE] SteamID ${dto.id} Offer #${offer.id} changed: ${TradeOfferManager.ETradeOfferState[oldState]
+        `[STEAM SERVICE] SteamID ${dto.id} Offer #${offer.id} changed: ${
+          TradeOfferManager.ETradeOfferState[oldState]
         } -> ${TradeOfferManager.ETradeOfferState[offer.state]}`,
       );
     });
@@ -130,9 +136,7 @@ export class SteamBotService {
           true,
           (err, inventory) => {
             if (err) {
-              throw new InternalServerErrorException(
-                'USER_INVENTORY_ERROR',
-              );
+              throw new InternalServerErrorException('USER_INVENTORY_ERROR');
             }
             if (inventory.length === 0) {
               throw new BadRequestException('USER_INVENTORY_EMPTY');
@@ -148,9 +152,7 @@ export class SteamBotService {
             offer.send((err, status) => {
               if (err) {
                 //TRADE BAN or new connection(less 7 day)
-                throw new InternalServerErrorException(
-                  'CANT_SEND_OFFER',
-                );
+                throw new InternalServerErrorException('CANT_SEND_OFFER');
               }
               console.log(status);
               if (status === 'pending') {
@@ -163,57 +165,70 @@ export class SteamBotService {
         );
       } else {
         // if bot send to user items
-        bot.manager.getInventoryContents(dto.appId, 2, true, (err, inventory) => {
-          if (err) {
-            console.log(err);
-            throw new InternalServerErrorException(
-              'CANT GET INVENTORY',
-            );
-          }
-          if (inventory.length === 0) {
-            throw new InternalServerErrorException(
-              'STEAM_BOT_INVENTORY_EMPTY',
-            );
-          }
-          const offer = bot.manager.createOffer(dto.tradeUrl);
-          console.log('created offer', offer);
-
-          const items: Array<CEconItem> = [];
-          dto.itemsName.map((name) => {
-            items.push(inventory.find((el) => el.name === name));
-          });
-          offer.addMyItems(items);
-
-          offer.send((err, status) => {
-            console.log('---')
-            console.log('what', offer);
-            console.log('!---')
-            console.log(err.toString())
-
+        bot.manager.getInventoryContents(
+          dto.appId,
+          2,
+          true,
+          (err, inventory) => {
             if (err) {
-              //TRADE BAN or new connection(less 7 day)
+              console.log(err);
+              throw new InternalServerErrorException('CANT GET INVENTORY');
+            }
+            if (inventory.length === 0) {
               throw new InternalServerErrorException(
-                'STEAM_BOT_INTERNAL_ERROR',
+                'STEAM_BOT_INVENTORY_EMPTY',
               );
             }
-            if (status === 'pending') {
-              //Confirmation logic
-              offerId = offer.id;
-              const time = Math.floor(Date.now() / 1000);
-              const confKey = getConfirmationKey(bot.identitySecret, time, 'conf');
-              const allowKey = getConfirmationKey(bot.identitySecret, time, 'allow');
+            const offer = bot.manager.createOffer(dto.tradeUrl);
+            console.log('created offer', offer);
 
-              bot.community.acceptAllConfirmations(time, confKey, allowKey, (err) => {
-              });
-              resolve(offerId);
+            const items: Array<CEconItem> = [];
+            dto.itemsName.map((name) => {
+              items.push(inventory.find((el) => el.name === name));
+            });
+            offer.addMyItems(items);
 
-            } else {
-              console.log('[STEAM SERVICE] bot succesfyle send trade');
-            }
-          });
-        });
+            offer.send((err, status) => {
+              console.log('---');
+              console.log('what', offer);
+              console.log('!---');
+              console.log(err.toString());
+
+              if (err) {
+                //TRADE BAN or new connection(less 7 day)
+                throw new InternalServerErrorException(
+                  'STEAM_BOT_INTERNAL_ERROR',
+                );
+              }
+              if (status === 'pending') {
+                //Confirmation logic
+                offerId = offer.id;
+                const time = Math.floor(Date.now() / 1000);
+                const confKey = getConfirmationKey(
+                  bot.identitySecret,
+                  time,
+                  'conf',
+                );
+                const allowKey = getConfirmationKey(
+                  bot.identitySecret,
+                  time,
+                  'allow',
+                );
+
+                bot.community.acceptAllConfirmations(
+                  time,
+                  confKey,
+                  allowKey,
+                  (err) => {},
+                );
+                resolve(offerId);
+              } else {
+                console.log('[STEAM SERVICE] bot succesfyle send trade');
+              }
+            });
+          },
+        );
       }
-
     });
   }
 
@@ -243,9 +258,7 @@ export class SteamBotService {
   private async confirmationCb(err: any) {
     if (err) {
       console.log(err);
-      throw new InternalServerErrorException(
-        'STEAM_BOT_CONFIRM_ERROR',
-      );
+      throw new InternalServerErrorException('STEAM_BOT_CONFIRM_ERROR');
     }
   }
 
@@ -261,7 +274,6 @@ export class SteamBotService {
     const temp: Array<IOrderObject2> = [];
 
     inventory.map((inv) => {
-
       const url = new URL('http://steamcommunity.com/market/priceoverview/');
       url.searchParams.append('appid', appid);
       url.searchParams.append('market_hash_name', inv.market_hash_name);

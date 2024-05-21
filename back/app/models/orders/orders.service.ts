@@ -1,4 +1,10 @@
-import { HttpCode, Injectable, InternalServerErrorException, NotFoundException, OnModuleInit } from '@nestjs/common';
+import {
+  HttpCode,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  OnModuleInit,
+} from '@nestjs/common';
 import {
   CreateOrderDTO,
   CreateRedirectUrlDto,
@@ -16,36 +22,29 @@ enum TradeBotStatus {
   SENT = 'SENT',
   WAITING = 'WAITING',
   REJECTED = 'REJECTECTED',
-  ACCEPTED = 'ACCEPTED'
+  ACCEPTED = 'ACCEPTED',
 }
 
 @Injectable()
-
 export class OrderService implements OnModuleInit {
   constructor(
     private readonly prisma: PrismaService,
     private readonly payment: PaymentService,
     private readonly tradeBot: SteamBotService,
-  ) {
-  }
+  ) {}
 
   onModuleInit() {
     this.tradeBot.login({
-      id: '76561198077709562',
-
-      guardToken: '7656119807770956||B2A64A0323942867D26A0A7F056D50213C6A0F5E',
-      oAuthToken: 'daa175efdad6e620d7a5fa32110be686',
-
-      sharedSecret: 'OCdOOrcq6IvOsPwgxf0n+9MOI68=',
-      identitySecret: 'nEYbtWFEDbrZO/Jk0GX12eeZp0I=',
+      accountName: 'biljards',
+      password: 'Kakasobaka12!',
+      disableMobile: true
     });
   }
-
 
   async initiateTransaction(paymentDto: InitiatePaymentDto, steamId: string) {
     const purchase = await this.payment.initiatePayment(paymentDto, steamId);
     if (!purchase) throw new InternalServerErrorException('TRANSACTION_FAILED');
-   // console.log('PURCHASE', purchase);
+    // console.log('PURCHASE', purchase);
 
     const userOrder = await this.prisma.order.findFirst({
       where: {
@@ -106,7 +105,8 @@ export class OrderService implements OnModuleInit {
       },
     });
 
-    if (!paidOrder) throw new InternalServerErrorException('PAID_ORDER_NOT_FOUND');
+    if (!paidOrder)
+      throw new InternalServerErrorException('PAID_ORDER_NOT_FOUND');
 
     const tradeOffer = await this.prisma.tradeBotOffer.create({
       data: {
@@ -119,45 +119,49 @@ export class OrderService implements OnModuleInit {
         botSteamId: '76561198077709562',
       },
     });
-    if (!tradeOffer) throw new InternalServerErrorException('TRADEOFFER_FAILED_TO_CREATE');
+    if (!tradeOffer)
+      throw new InternalServerErrorException('TRADEOFFER_FAILED_TO_CREATE');
     return tradeOffer;
   }
 
-  public async createOrder(dto: CreateOrderDTO, steamId: string): Promise<Order> {
-    return this.prisma.order.create({
-      data: {
-        items: {
-          connect: dto.items.map((el) => ({ assetId: el.assetId })),
-        },
-        status: OrderStatus.RESERVED,
-        totalPrice: dto.items.reduce((total, el) => {
-          return total + el.price;
-        }, 0),
-        user: {
-          connect: {
-            steamId: steamId,
-          },
-        },
-        createdAt: new Date(),
-      },
-    }).then(async (res) => {
-
-      const reservation = await this.prisma.steamItem.updateMany({
-        where: {
-          assetId: {
-            in: dto.items.map((el) => el.assetId),
-          },
-        },
+  public async createOrder(
+    dto: CreateOrderDTO,
+    steamId: string,
+  ): Promise<Order> {
+    return this.prisma.order
+      .create({
         data: {
-          quantity: {
-            decrement: 1,
+          items: {
+            connect: dto.items.map((el) => ({ assetId: el.assetId })),
           },
+          status: OrderStatus.RESERVED,
+          totalPrice: dto.items.reduce((total, el) => {
+            return total + el.price;
+          }, 0),
+          user: {
+            connect: {
+              steamId: steamId,
+            },
+          },
+          createdAt: new Date(),
         },
+      })
+      .then(async (res) => {
+        const reservation = await this.prisma.steamItem.updateMany({
+          where: {
+            assetId: {
+              in: dto.items.map((el) => el.assetId),
+            },
+          },
+          data: {
+            quantity: {
+              decrement: 1,
+            },
+          },
+        });
+
+        if (reservation) return res;
       });
-
-      if (reservation) return res;
-
-    });
   }
 
   public async sendTradeOrder(orderId: number, userSteamId: string) {
@@ -165,7 +169,8 @@ export class OrderService implements OnModuleInit {
       where: { steamId: userSteamId },
     });
     if (!user) throw new InternalServerErrorException('NO USER FOUND');
-    if (!user.tradeOfferLink) throw new InternalServerErrorException('NO_TRADE_OFFER_LINK');
+    if (!user.tradeOfferLink)
+      throw new InternalServerErrorException('NO_TRADE_OFFER_LINK');
 
     const userOrderById = await this.prisma.order.findUnique({
       where: {
