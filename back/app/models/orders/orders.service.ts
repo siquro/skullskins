@@ -17,6 +17,9 @@ import {
 import { OrderStatus } from '../../../libs/common/src/enum/order.enum';
 import { TransactionStatus } from '../../../libs/common/src/enum/payment.enum';
 import { Order } from '@prisma/client';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 enum TradeBotStatus {
   SENT = 'SENT',
@@ -35,8 +38,8 @@ export class OrderService implements OnModuleInit {
 
   onModuleInit() {
     this.tradeBot.login({
-      accountName: 'biljards',
-      password: 'Kakasobaka12!',
+      accountName: process.env.STEAM_NAME,
+      password: process.env.STEAM_PASSWORD,
       disableMobile: true
     });
   }
