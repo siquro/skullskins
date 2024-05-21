@@ -1,0 +1,52 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - master
+permissions:
+  contents: write
+
+jobs:
+  deploy_production:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v3
+
+      - name: Determine changed directory
+        run: echo "::set-env name=CHANGED_DIR::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | cut -d/ -f1 | sort -u)"
+    
+      - name: Deploy to production
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd skullskins
+
+            git remote -v
+            
+            if git diff-index --quiet HEAD --; then
+              echo "No local changes, proceeding with git pull"
+            else
+              echo "Stashing local changes before git pull"
+              git stash
+            fi
+
+            git pull origin master
+            if [[ "${CHANGED_DIR}" == "client2" ]]; then
+              cd client2
+              npm run build
+              pm2 restart skullFront
+            elif [[ "${CHANGED_DIR}" == "back" ]]; then
+              cd back
+              npm run build
+              pm2 restart skullBack
+            fi
