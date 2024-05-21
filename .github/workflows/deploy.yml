@@ -35,7 +35,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd skullskins
+            cd skullskins/
 
             git remote -v
             
