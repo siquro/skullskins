@@ -4,7 +4,7 @@ import Api from "../../utils/api"
 
 const Callback = () => {
     const history = useRouter()
-
+    console.log (history)
     useEffect(() => {
 
         const query = history.query
